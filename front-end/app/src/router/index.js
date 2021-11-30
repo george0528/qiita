@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Rank from '../views/Rank.vue'
 import NewRank from '../views/NewRank.vue';
 
 Vue.use(VueRouter)
@@ -9,13 +8,8 @@ const routes = [
   {
     path: '/',
     name: 'Rank',
-    component: Rank,
-  },
-  {
-    path: '/newrank',
-    name: 'NewRank',
     component: NewRank,
-  }
+  },
   // {
   //   path: '/about',
   //   name: 'About',

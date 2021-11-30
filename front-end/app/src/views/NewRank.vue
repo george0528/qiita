@@ -8,7 +8,7 @@
       <button @click="search(7)" class="component_btn primary">週間</button>
       <button @click="search(30)" class="component_btn primary">月間</button>
     </div> -->
-    <a class="content" v-for="item in search_contents" :href="item.url" :key="item.id">
+    <a class="content" v-for="item in contents" :href="item.post_url" :key="item.post_id">
       <div class="left">
         <p class="date">{{ content_date(item) }}</p>
         <p class="title">{{ item.title }}</p>
@@ -19,8 +19,8 @@
       <div class="right"></div>
       <div class="bottom">
         <div class="user">
-          <img :src="item.user.profile_image_url" alt="">
-          <span>{{ item.user.name }}</span>
+          <img :src="item.user_image_url" alt="">
+          <span>{{ item.user_name }}</span>
         </div>
         <div class="good">
           <img src="@/assets/img/good.png" alt="">
@@ -34,104 +34,32 @@
 export default {
   data() {
       return {
-        search_contents: {},
-        search_keyword: '',
-        search_url: '',
-        search_days: 7,
-        select_date: '',
         url: '',
-        per_page: 20,
-        page: 1,
-        query_param: '',
         contents: {},
         load: false ,
       };
     } ,
   methods : {
-    base_url_set() {
-      this.url = new URL('https://qiita.com/api/v2/items');
-      let params = this.url.searchParams;
-      params.set('per_page', this.per_page);
-      params.set('page', this.page);
-      this.query_param = `stocks:>${this.search_days}`;
-      var day = this.get_date(this.search_days);
-      this.query_param_set(day);
-      if(this.query_param) {
-        params.set('query', this.query_param)
-      }
-    },
     // search(days) {
     //     var day = this.get_date(this.search_days);
     //     let params = this.url.searchParams;
     // },
-    query_param_set(param) {
-      this.query_param = this.query_param+param;
-    },
-    async get_contents() {
+    get_contents() {
       this.load = true;
-      return await this.axios.get(this.url,{
-        headers: {"Authorization":"Bearer 5fbe77e0acd1cb34b2d2e0877b68fab6729ca251"},
-        data: {},
-      })
+      return this.axios.get(this.url)
       .then((response) => {
         let contents = response.data;
-        // 配列が空の時
-        if(!contents.length) {
-          console.log('配列が空です、最後の配列です');
-          this.sort_like(this.contents);
-          this.contents.splice(20);
-          this.search_contents = this.contents;
-          this.load = false;
-          return false;
-        }
         // 配列追加
-        if(this.contents.length) {
-          this.contents = this.contents.concat(contents);
-        } else {
           this.contents = contents;
-        }
-        // 最後
-        if(contents.length < this.per_page) {
-          this.sort_like(this.contents);
-          this.contents.splice(20);
-          this.search_contents = this.contents;
           this.load = false;
-          return false;
-        } else {
-          return true;
-        }
       });
     },
-    get_date(day) {
-      var now = new Date();
-      var select_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day);
-      var query_select_date = ` created:>=${select_date.getFullYear()}-${select_date.getMonth() + 1}-${select_date.getDate()}`;
-      return query_select_date;
-    },
-    sort_like(contents) {
-      contents.sort(function(a,b) {
-        if(a.likes_count > b.likes_count) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    }
   },
-  mounted : async function() {
-    var loop_flag = true;
-    this.base_url_set();
-    while(loop_flag) {
-      loop_flag = await this.get_contents();
-      this.page++;
-      let params = this.url.searchParams;
-      params.set('page', this.page);
-    }
+  mounted : function() {
+    this.url = new URL('http://localhost:8000/api/ranking');
+    this.get_contents();
   },
   computed: {
-    contents_length: function (){
-      return Object.keys(this.search_contents).length;
-    },
     content_date: function() {
         return function(item) {
         let date = new Date(item.created_at);
