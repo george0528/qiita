@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class DataUpdate extends Command
 {
@@ -84,6 +85,8 @@ class DataUpdate extends Command
         // 並び替え
         $result = $this->sortByKey('likes_count', SORT_DESC, $this->contents);
         $result = array_slice($result, 0, 10);
+        // 古いDBデータ削除
+        DB::table('posts')->delete();
         foreach ($result as $content) {
           // DBデータ作成
           $data = [
