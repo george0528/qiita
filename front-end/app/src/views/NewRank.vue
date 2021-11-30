@@ -9,14 +9,22 @@
       <button @click="search(30)" class="component_btn primary">月間</button>
     </div> -->
     <a class="content" v-for="item in contents" :href="item.post_url" :key="item.post_id">
-      <div class="left">
-        <p class="date">{{ content_date(item) }}</p>
-        <p class="title">{{ item.title }}</p>
-        <div class="tags">
-          <span v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</span>
+      <div class="top">
+        <div class="left">
+          <p class="date">{{ content_date(item) }}</p>
+          <p class="title">{{ item.title }}</p>
+          <div class="tags">
+            <span v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</span>
+          </div>
+        </div>
+        <div class="right" >
+          <div class="circle">
+            <div class="bookmark">
+            <img src="@/assets/img/bookmark.png" alt="">
+            </div>
+          </div>
         </div>
       </div>
-      <div class="right"></div>
       <div class="bottom">
         <div class="user">
           <img :src="item.user_image_url" alt="">
@@ -93,14 +101,41 @@ export default {
   a.contenet{
     width: 100vw;
   }
-  .content .left {
+  .content .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content .top .rigth {
+    width: 10%;
+  }
+  .content .top .right .circle {
+    background-color: silver;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  .content .top .right .circle.save {
+    background-color: rgb(0, 180, 0);
+  }
+  .content .top .right .circle .bookmark {
+    width: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content .top .right .circle .bookmark img {
+    display: block;
+    width: 100%;
+  }
+  .content .top .left {
     width: 90%;
   }
-  .content .left .date {
+  .content .top .left .date {
     color: gray;
     font-size: 0.7rem;
   }
-  .content .left .title {
+  .content .top .left .title {
     font-weight: bold;
     padding: 0;
     margin: 2.5px 0;
@@ -109,12 +144,12 @@ export default {
     /* max-height: 37px;
     overflow: hidden; */
   }
-  .content .left .tags {
+  .content .top .left .tags {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .content .left .tags span {
+  .content .top .left .tags span {
     margin-right: 4px;
     color: gray;
   }
