@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    // タイムスタンプ無効
+    public $timestamps = false;
     protected $guarded = ['id'];
 }

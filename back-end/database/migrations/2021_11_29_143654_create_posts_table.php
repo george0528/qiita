@@ -15,14 +15,14 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('post_id');
-            $table->string('post_url');
-            $table->string('title');
-            $table->string('user_image_url');
-            $table->string('user_name');
+            $table->text('post_id');
+            $table->text('post_url');
+            $table->text('title');
+            $table->text('user_image_url');
+            $table->text('user_name');
             $table->integer('likes_count');
             $table->date('created_at');
-            $table->json('tags');
+            $table->json('tags')->nullable();
         });
     }
 

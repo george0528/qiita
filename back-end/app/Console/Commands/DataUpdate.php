@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Post;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -47,7 +48,7 @@ class DataUpdate extends Command
    *
    * @return int
    */
-  public function handle()
+  public function handle(Post $post)
   {
     // qiita api
     $client = new Client();
@@ -84,8 +85,19 @@ class DataUpdate extends Command
         $result = $this->sortByKey('likes_count', SORT_DESC, $this->contents);
         $result = array_slice($result, 0, 10);
         foreach ($result as $content) {
-          // DB保存
-          Log::alert($content['likes_count']);
+          // DBデータ作成
+          $data = [
+            'post_id' => $content['id'],
+            'post_url' => $content['url'],
+            'title' => $content['title'],
+            'user_image_url' => $content['user']['profile_image_url'],
+            'user_name' => $content['user']['name'],
+            'likes_count' => $content['likes_count'],
+            'created_at' => $content['created_at'],
+            'tags' => json_encode($content['tags'])
+          ];
+          // DB追加
+          $post->create($data);
         }
         break;
       }
