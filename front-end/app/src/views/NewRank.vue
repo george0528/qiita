@@ -1,6 +1,5 @@
 <template>
   <div class="NewRank">
-    <!-- <h2>{{url}}</h2> -->
     <div class="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
@@ -48,10 +47,6 @@ export default {
       };
     } ,
   methods : {
-    // search(days) {
-    //     var day = this.get_date(this.search_days);
-    //     let params = this.url.searchParams;
-    // },
     get_contents() {
       this.load = true;
       return this.axios.get(this.url)
