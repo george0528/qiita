@@ -105,6 +105,7 @@ class DataUpdate extends Command
         break;
       }
     }
+    Log::alert('データを更新しました');
     return Command::SUCCESS;
   }
   // query set
