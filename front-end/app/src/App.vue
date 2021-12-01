@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/save-contents">SaveContents</router-link>
     </div>
     <router-view/>
   </div>
@@ -18,6 +19,7 @@
 
 #nav {
   padding: 30px;
+  box-shadow: 1px 1px 3px silver;
 }
 
 #nav a {

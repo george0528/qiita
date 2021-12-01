@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NewRank from '../views/NewRank.vue';
+import SaveContents from '../views/SaveContents.vue';
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ const routes = [
     name: 'Rank',
     component: NewRank,
   },
+  {
+    path: '/save-contents',
+    name: 'SaveContents',
+    component: SaveContents
+  }
   // {
   //   path: '/about',
   //   name: 'About',

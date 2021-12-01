@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="right" >
-          <div class="circle">
+          <div @click.prevent="toggle_save(item)" :class="is_save_content(item.post_id)">
             <div class="bookmark">
             <img src="@/assets/img/bookmark.png" alt="">
             </div>
@@ -44,6 +44,7 @@ export default {
         url: '',
         contents: {},
         load: false ,
+        save_contents: {},
       };
     } ,
   methods : {
@@ -57,10 +58,43 @@ export default {
           this.load = false;
       });
     },
+    toggle_save(content) {
+      let content_id = content.post_id;
+      if(this.save_contents.length) {
+        var id_include = this.is_include_id(content_id);
+      }
+      // 保存されていたら
+      if(id_include) {
+        // 配列から削除
+        this.save_contents = this.save_contents.filter(content => content.post_id !== content_id);
+      } else {
+        // 配列に追加
+        if(this.save_contents.length) {
+          this.save_contents.push(content);
+        } else {
+          this.save_contents = [content];
+        }
+      }
+      this.post_save_contents(this.save_contents);
+    },
+    get_save_contents() {
+      let contents = JSON.parse(localStorage.getItem('save_contents'));
+      if(contents) {
+        this.save_contents = contents;
+      }
+    },
+    post_save_contents(contents) {
+      contents = JSON.stringify(contents);
+      localStorage.setItem('save_contents', contents);
+    },
+    is_include_id(content_id) {
+      return this.save_contents.find(content => content.post_id === content_id);
+    }
   },
   mounted : function() {
     this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
     this.get_contents();
+    this.get_save_contents();
   },
   computed: {
     content_date: function() {
@@ -69,114 +103,25 @@ export default {
         let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}投稿`;
         return date_string;
       }
+    },
+    is_save_content: function() {
+      return function(id) {
+        if(this.save_contents.length) {
+          var is_include = this.is_include_id(id);
+        } else {
+          is_include = false;
+        }
+        if(is_include) {
+          return 'circle save';
+        } else {
+          return 'circle';
+        }
+      }
     }
   }
 }
 </script>
 <style>
   @import "../assets/css/style.css";
-  a {
-    color: black;
-    text-decoration: none;
-    text-align: left;
-    font-size: 0.8rem;
-  }
-  p {
-    margin: 0;
-  }
-  span {
-    font-size: 0.7rem;
-  }
-  .load {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0;
-  }
-  a.contenet{
-    width: 100vw;
-  }
-  .content .top {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .content .top .rigth {
-    width: 10%;
-  }
-  .content .top .right .circle {
-    background-color: silver;
-    border-radius: 50%;
-    padding: 5px;
-  }
-  .content .top .right .circle.save {
-    background-color: rgb(0, 180, 0);
-  }
-  .content .top .right .circle .bookmark {
-    width: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .content .top .right .circle .bookmark img {
-    display: block;
-    width: 100%;
-  }
-  .content .top .left {
-    width: 90%;
-  }
-  .content .top .left .date {
-    color: gray;
-    font-size: 0.7rem;
-  }
-  .content .top .left .title {
-    font-weight: bold;
-    padding: 0;
-    margin: 2.5px 0;
-    display: flex;
-    align-items: center;
-    /* max-height: 37px;
-    overflow: hidden; */
-  }
-  .content .top .left .tags {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .content .top .left .tags span {
-    margin-right: 4px;
-    color: gray;
-  }
-  .content .bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    margin: 2.5px 0;
-  }
-  .content .bottom .user {
-    display: flex;
-    align-items: center;
-  }
-  .content .bottom .user img {
-    display: block;
-    width: 25px;
-    height: auto;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
-  .content .bottom .good {
-    display: flex;
-    align-items: center;
-  }
-  .content .bottom .good span {
-    display: block;
-    margin:0 5px;
-  }
-  .content .bottom .good img{
-    display: block;
-    margin:0 5px;
-    width: 15px;
-  }
+  @import "../assets/css/content.css";
 </style>
