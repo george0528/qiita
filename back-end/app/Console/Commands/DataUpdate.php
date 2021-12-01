@@ -87,6 +87,7 @@ class DataUpdate extends Command
         $result = array_slice($result, 0, 10);
         // 古いDBデータ削除
         DB::table('posts')->delete();
+        $test_contents = [];
         foreach ($result as $content) {
           // DBデータ作成
           $data = [
@@ -94,18 +95,21 @@ class DataUpdate extends Command
             'post_url' => $content['url'],
             'title' => $content['title'],
             'user_image_url' => $content['user']['profile_image_url'],
-            'user_name' => $content['user']['name'],
+            'user_name' => $content['user']['id'],
             'likes_count' => $content['likes_count'],
             'created_at' => $content['created_at'],
             'tags' => json_encode($content['tags'])
           ];
           // DB追加
           $post->create($data);
+          unset($content['rendered_body']);
+          unset($content['body']);
+          $test_contents[] = $content;
         }
         break;
       }
     }
-    Log::alert('データを更新しました');
+    Log::alert("データを更新しました");
     return Command::SUCCESS;
   }
   // query set
