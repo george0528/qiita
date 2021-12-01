@@ -59,7 +59,7 @@ export default {
     },
   },
   mounted : function() {
-    this.url = new URL('http://back-end.qiita-my-ranking.online/api/ranking');
+    this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
     this.get_contents();
   },
   computed: {
