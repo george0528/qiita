@@ -28,4 +28,5 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
-            git pull
+            sudo git pull
+            ${{ sercrets.SERVER_USER_PASSWORD }}
