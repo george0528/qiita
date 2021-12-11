@@ -155,4 +155,7 @@ span {
   .content .bottom .good img {
     margin: 0 0 5px;
   }
+  .content .top .right .circle {
+    transform: scale(1.2, 1.2);
+  }
 }
