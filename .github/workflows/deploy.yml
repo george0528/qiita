@@ -29,4 +29,3 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
             sudo git pull
-            ${{ secrets.SERVER_USER_PASSWORD }}
