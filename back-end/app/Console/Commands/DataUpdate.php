@@ -84,7 +84,7 @@ class DataUpdate extends Command
         $this->loop_flag = false;
         // 並び替え
         $result = $this->sortByKey('likes_count', SORT_DESC, $this->contents);
-        $result = array_slice($result, 0, 10);
+        $result = array_slice($result, 0, 20);
         // 古いDBデータ削除
         DB::table('posts')->delete();
         $test_contents = [];
