@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DataUpdate extends Command
 {
@@ -110,19 +111,27 @@ class DataUpdate extends Command
       }
     }
     Log::alert("データを更新しました");
+    Mail::send('email.send', '', function($message) {
+        $message->to('aleph0528@gmail.com')
+                ->from('aleph0528@gmail.com', 'qiita-my-ranking')
+                ->subject('Qiitaの週間ランキングのデータを更新しました');
+    });
     return Command::SUCCESS;
   }
+
   // query set
   public function query_params_set($value)
   {
     $this->query_params = $this->query_params.' '.$value;
   }
+
   // 日付求める処理
   public function generate_days($day) {
     $date = new Carbon("-${day} day");
     $date = $date->format("Y-m-d");
     return $date;
   }
+
   // 並び替え
   public function sortByKey($key_name, $sort_order, $array) {
     foreach ($array as $key => $value) {
