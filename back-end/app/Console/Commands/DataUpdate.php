@@ -111,7 +111,8 @@ class DataUpdate extends Command
       }
     }
     Log::alert("データを更新しました");
-    Mail::send('email.send', '', function($message) {
+    $now = Carbon::now();
+    Mail::send('email.send', ['time' => $now], function($message) {
         $message->to('aleph0528@gmail.com')
                 ->from('aleph0528@gmail.com', 'qiita-my-ranking')
                 ->subject('Qiitaの週間ランキングのデータを更新しました');
