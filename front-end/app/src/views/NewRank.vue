@@ -7,10 +7,14 @@
       <button @click="search(7)" class="component_btn primary">週間</button>
       <button @click="search(30)" class="component_btn primary">月間</button>
     </div> -->
-    <a class="content" v-for="item in contents" :href="item.post_url" :key="item.post_id">
+    <a class="content" v-for="(item, index) in contents" :href="item.post_url" :key="item.post_id">
       <div class="top">
         <div class="left">
-          <p class="date">{{ content_date(item) }}</p>
+          <div class="flex">
+            <p class="date">{{ content_date(item) }}</p>
+            <Crown :num="index + 1"/>
+            <span class="rank_index">{{ index + 1 }}</span>
+          </div>
           <p class="title">{{ item.title }}</p>
           <div class="tags">
             <span v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</span>
@@ -38,6 +42,7 @@
   </div>
 </template>
 <script>
+import Crown from '@/components/Crown.vue'
 export default {
   data() {
       return {
@@ -46,8 +51,12 @@ export default {
         load: false ,
         save_contents: {},
       };
-    } ,
+    },
+  components: {
+    Crown,
+  },
   methods : {
+    // ランキング取得
     get_contents() {
       this.load = true;
       return this.axios.get(this.url)
@@ -58,6 +67,7 @@ export default {
           this.load = false;
       });
     },
+    // 保存ボタンクリック関数
     toggle_save(content) {
       let content_id = content.post_id;
       if(this.save_contents.length) {
@@ -122,6 +132,6 @@ export default {
 }
 </script>
 <style>
-  @import "../assets/css/style.css";
   @import "../assets/css/content.css";
+  @import "../assets/css/style.css";
 </style>

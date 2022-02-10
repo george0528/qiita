@@ -16,6 +16,7 @@ p {
 span {
   font-size: 0.8rem;
 }
+
 .load {
   display: flex;
   align-items: center;
@@ -75,9 +76,36 @@ span {
 }
 .content .top .left {
   width: 90%;
+  fill: gray;
 }
-.content .top .left .date {
+.rank_index {
+  display: inline-block;
+  margin-left: 10px;
+}
+.content .top .left .flex {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.content .top .left .flex .crown {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  fill: gray;
+  margin-left: 10px;
+}
+.content .top .left .flex .crown.child1 {
+  fill: gold;
+}
+.content .top .left .flex .crown.child2 {
+  fill: silver;
+}
+.content .top .left .flex .crown.child3 {
+  fill: #BA6E40;
+}
+.content .top .left .flex .date {
   color: gray;
+  display: inline-block;
   font-size: 0.7rem;
 }
 .content .top .left .title {
