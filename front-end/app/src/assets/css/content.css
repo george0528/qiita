@@ -78,10 +78,6 @@ span {
   width: 90%;
   fill: gray;
 }
-.rank_index {
-  display: inline-block;
-  margin-left: 10px;
-}
 .content .top .left .flex {
   display: flex;
   width: 100%;
@@ -93,6 +89,11 @@ span {
   display: inline-block;
   fill: gray;
   margin-left: 10px;
+}
+.content .top .left .flex .rank_index {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 0.8rem;
 }
 .content .top .left .flex .crown.child1 {
   fill: gold;

@@ -29,4 +29,8 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
             sudo git pull
+            cd front-end
             npm install
+            cd app
+            npm install
+            npm run build
