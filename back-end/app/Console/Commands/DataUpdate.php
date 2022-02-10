@@ -88,7 +88,6 @@ class DataUpdate extends Command
         $result = array_slice($result, 0, 20);
         // 古いDBデータ削除
         DB::table('posts')->delete();
-        $test_contents = [];
         foreach ($result as $content) {
           // DBデータ作成
           $data = [
@@ -103,9 +102,10 @@ class DataUpdate extends Command
           ];
           // DB追加
           $post->create($data);
+          // 不要な部分を削除
           unset($content['rendered_body']);
           unset($content['body']);
-          $test_contents[] = $content;
+          // 何かしらの処理をする時 例:メールで送信する時に渡すコンテンツ
         }
         break;
       }
