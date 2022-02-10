@@ -50,6 +50,7 @@ export default {
         contents: {},
         load: false ,
         save_contents: {},
+        local_contents: {},
       };
     },
   components: {
@@ -58,13 +59,23 @@ export default {
   methods : {
     // ランキング取得
     get_contents() {
-      this.load = true;
+      this.local_contents = JSON.parse(localStorage.getItem('contents'));
+      // ローカルストレージにコンテンツがあればとりあえず表示
+      this.contents = this.local_contents;
+      if(this.local_contents == null) {
+        this.load = true;
+      }
       return this.axios.get(this.url)
       .then((response) => {
         let contents = response.data;
-        // 配列追加
+        // 現在のコンテンツと比較して
+        if(!this.array_compare(this.local_contents, contents)) {
+          // 配列追加
           this.contents = contents;
-          this.load = false;
+        }
+        // ローカルストレージにコンテンツをキャッシュとして保存
+        localStorage.setItem('contents', JSON.stringify(contents));
+        this.load = false;
       });
     },
     // 保存ボタンクリック関数
@@ -87,19 +98,29 @@ export default {
       }
       this.post_save_contents(this.save_contents);
     },
+    // セーブコンテンツ取得
     get_save_contents() {
       let contents = JSON.parse(localStorage.getItem('save_contents'));
       if(contents) {
         this.save_contents = contents;
       }
     },
+    // セーブコンテンツに追加
     post_save_contents(contents) {
       contents = JSON.stringify(contents);
       localStorage.setItem('save_contents', contents);
     },
+    // セーブコンテンツに含まれているかチェックする関数
     is_include_id(content_id) {
       return this.save_contents.find(content => content.post_id === content_id);
-    }
+    },
+    // 配列比較関数
+    array_compare(ary1, ary2){
+      if(JSON.stringify(ary1) === JSON.stringify(ary2)) {
+        return true;
+      }
+      return false;
+    } 
   },
   mounted : function() {
     this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
