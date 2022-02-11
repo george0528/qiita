@@ -48,9 +48,10 @@ class DataUpdate extends Command
    */
   public function handle()
   {
-    // qiita api
     // 週間ランキング
     $this->main(7, 'posts', 5);
+    // 月間ランキング
+    $this->main(30, 'month_posts', 15);
     // メール送信
     $now = Carbon::now();
     Mail::send('email.send', ['time' => $now], function($message) {
