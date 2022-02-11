@@ -23,6 +23,9 @@ span {
   justify-content: center;
   padding: 10px 0;
 }
+.top_space {
+  padding-top: 10px;
+}
 .content{
   width: 100%;
   display: block;

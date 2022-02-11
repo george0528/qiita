@@ -1,48 +1,24 @@
 <template>
   <div class="NewRank">
-    <div class="load">
+    <div class="load" v-if="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
+    <div class="top_space"></div>
     <!-- <div class="btns">
       <button @click="search(7)" class="component_btn primary">週間</button>
       <button @click="search(30)" class="component_btn primary">月間</button>
     </div> -->
-    <a class="content" v-for="(item, index) in contents" :href="item.post_url" :key="item.post_id">
-      <div class="top">
-        <div class="left">
-          <div class="flex">
-            <p class="date">{{ content_date(item) }}</p>
-            <Crown :num="index + 1"/>
-            <span class="rank_index">{{ index + 1 }}</span>
-          </div>
-          <p class="title">{{ item.title }}</p>
-          <div class="tags">
-            <span v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</span>
-          </div>
-        </div>
-        <div class="right" >
-          <div @click.prevent="toggle_save(item)" :class="is_save_content(item.post_id)">
-            <div class="bookmark">
-            <img src="@/assets/img/bookmark.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="user">
-          <img :src="item.user_image_url" alt="">
-          <span>{{ item.user_name }}</span>
-        </div>
-        <div class="good">
-          <img src="@/assets/img/good.png" alt="">
-          <span>{{ item.likes_count }}</span>
-        </div>
-      </div>
-    </a>
+    <Contents 
+      :contents="this.contents" 
+      :save_contents="this.save_contents"
+      :is_include_id="this.is_include_id"
+      @toggle_btn_click="toggle_save"
+      :rank="true"
+    />
   </div>
 </template>
 <script>
-import Crown from '@/components/Crown.vue'
+import Contents from '@/components/Contents.vue'
 export default {
   data() {
       return {
@@ -50,26 +26,26 @@ export default {
         contents: {},
         load: false ,
         save_contents: {},
-        local_contents: {},
+        cache_contents: {},
       };
     },
   components: {
-    Crown,
+    Contents,
   },
   methods : {
     // ランキング取得
     get_contents() {
-      this.local_contents = JSON.parse(localStorage.getItem('contents'));
+      this.cache_contents = JSON.parse(localStorage.getItem('contents'));
       // ローカルストレージにコンテンツがあればとりあえず表示
-      this.contents = this.local_contents;
-      if(this.local_contents == null) {
+      this.contents = this.cache_contents;
+      if(this.cache_contents == null) {
         this.load = true;
       }
       return this.axios.get(this.url)
       .then((response) => {
         let contents = response.data;
         // 現在のコンテンツと比較して
-        if(!this.array_compare(this.local_contents, contents)) {
+        if(!this.array_compare(this.cache_contents, contents)) {
           // 配列追加
           this.contents = contents;
         }
@@ -128,13 +104,6 @@ export default {
     this.get_save_contents();
   },
   computed: {
-    content_date: function() {
-        return function(item) {
-        let date = new Date(item.created_at);
-        let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}投稿`;
-        return date_string;
-      }
-    },
     is_save_content: function() {
       return function(id) {
         if(this.save_contents.length) {
