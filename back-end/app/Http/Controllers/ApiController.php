@@ -11,7 +11,7 @@ class ApiController extends Controller
 {
   // 定数
   private const PERIOD_TYPE_WEEK = 1;
-  private const PERIOD_TYPE_MONTH = 1;
+  private const PERIOD_TYPE_MONTH = 2;
 
   // 関数
   public function index(Request $request, Post $post, MonthPost $monthPost)
