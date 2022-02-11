@@ -1,21 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NewRank from '../views/NewRank.vue';
-import SaveContents from '../views/SaveContents.vue';
+import Home from '../views/Home.vue'
+import SaveContents from '../views/SaveContents.vue'
+import History from '../views/History.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Rank',
-    component: NewRank,
+    name: 'Home',
+    component: Home,
   },
   {
     path: '/save-contents',
     name: 'SaveContents',
     component: SaveContents
-  }
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History
+  },
   // {
   //   path: '/about',
   //   name: 'About',

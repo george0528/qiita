@@ -1,6 +1,6 @@
 <template>
 <div>
-  <a class="content" v-for="(item, index) in contents" :href="item.post_url" :key="item.post_id">
+  <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :href="item.post_url" :key="item.post_id">
     <div class="top">
       <div class="left">
         <div class="flex">
@@ -46,6 +46,10 @@ export default {
   methods: {
     clickToggleSave(item) {
       this.$emit("toggle_btn_click", item);
+    },
+    clickContent(item) {
+      
+      window.location.href = item.post_url;
     }
   },
   computed: {
