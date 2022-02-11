@@ -4,10 +4,10 @@
       <div v-if="load" class="component_load_circle"></div>
     </div>
     <div class="top_space"></div>
-    <!-- <div class="btns">
-      <button @click="search(7)" class="component_btn primary">週間</button>
-      <button @click="search(30)" class="component_btn primary">月間</button>
-    </div> -->
+    <div class="btns">
+      <button @click="changeType(1)" class="component_btn primary">週間</button>
+      <button @click="changeType(2)" class="component_btn primary">月間</button>
+    </div>
     <Contents 
       :contents="this.contents" 
       :save_contents="this.save_contents"
@@ -27,6 +27,7 @@ export default {
         load: false ,
         save_contents: {},
         cache_contents: {},
+        type: 1,
       };
     },
   components: {
@@ -38,10 +39,16 @@ export default {
       this.cache_contents = JSON.parse(localStorage.getItem('contents'));
       // ローカルストレージにコンテンツがあればとりあえず表示
       this.contents = this.cache_contents;
+
       if(this.cache_contents == null) {
         this.load = true;
       }
-      return this.axios.get(this.url)
+
+      return this.axios.get(this.url, {
+        params: {
+          type: this.type
+        }
+      })
       .then((response) => {
         let contents = response.data;
         // 現在のコンテンツと比較して
@@ -52,7 +59,20 @@ export default {
         // ローカルストレージにコンテンツをキャッシュとして保存
         localStorage.setItem('contents', JSON.stringify(contents));
         this.load = false;
+      })
+      .catch(e => {
+        console.log(e);
+        this.load = false;
       });
+    },
+    // 期間の変更ボタン
+    changeType(type) {
+      // タイプが違う場合は
+      if(type != this.type) {
+        console.log('click');
+        this.type = type;
+        this.get_contents();
+      }
     },
     // 保存ボタンクリック関数
     toggle_save(content) {
@@ -99,7 +119,7 @@ export default {
     } 
   },
   mounted : function() {
-    this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
+    this.url = 'https://back-end.qiita-my-ranking.online/api/ranking';
     this.get_contents();
     this.get_save_contents();
   },
