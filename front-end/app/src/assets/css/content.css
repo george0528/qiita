@@ -9,6 +9,7 @@ a {
   text-decoration: none;
   text-align: left;
   font-size: 1rem;
+  cursor: pointer;
 }
 p {
   margin: 0;

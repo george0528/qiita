@@ -1,11 +1,12 @@
 <template>
 <div>
-  <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :href="item.post_url" :key="item.post_id">
+  <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :key="item.post_id">
     <div class="top">
       <div class="left">
         <div class="flex">
-          <p class="date">{{ content_date(item) }}</p>
+          <p class="date">{{ content_date(item.created_at) }}</p>
           <Rank :index="index" v-if="rank"/>
+          <!-- <p class="date" v-if="item.history_date">{{ history_date(item.history_date) }}</p> -->
         </div>
         <p class="title">{{ item.title }}</p>
         <div class="tags">
@@ -13,7 +14,7 @@
         </div>
       </div>
       <div class="right" >
-        <div @click.prevent="clickToggleSave(item)" :class="is_save_content(item.post_id)">
+        <div @click.stop.prevent="clickToggleSave(item)" :class="is_save_content(item.post_id)">
           <div class="bookmark">
           <img src="@/assets/img/bookmark.png" alt="">
           </div>
@@ -48,14 +49,17 @@ export default {
       this.$emit("toggle_btn_click", item);
     },
     clickContent(item) {
-      
+      // 履歴追加処理
+      let now = new Date();
+      item.history_date = now;
+      this.addHistory(item);
       window.location.href = item.post_url;
     }
   },
   computed: {
     content_date: function() {
-        return function(item) {
-        let date = new Date(item.created_at);
+      return function(origin_date) {
+        let date = new Date(origin_date);
         let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}投稿`;
         return date_string;
       }
@@ -72,6 +76,13 @@ export default {
         } else {
           return 'circle';
         }
+      }
+    },
+    history_date: function() {
+      return function(origin_date) {
+        let date = new Date(origin_date);
+        let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} 履歴追加`;
+        return date_string;
       }
     }
   },

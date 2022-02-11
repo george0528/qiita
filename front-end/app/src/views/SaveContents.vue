@@ -61,6 +61,7 @@ export default {
     this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
     this.get_save_contents();
     this.contents = this.save_contents;
+    this.contents.reverse();
   }
 }
 </script>
