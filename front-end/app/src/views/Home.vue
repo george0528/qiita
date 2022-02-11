@@ -5,8 +5,8 @@
     </div>
     <div class="top_space"></div>
     <div class="btns">
-      <button @click="changeType(1)" class="component_btn primary">週間</button>
-      <button @click="changeType(2)" class="component_btn primary">月間</button>
+      <button v-if="this.type != 1" @click="changeType(1)" class="component_btn primary">週間</button>
+      <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>
     </div>
     <Contents 
       :contents="this.contents" 
@@ -69,7 +69,6 @@ export default {
     changeType(type) {
       // タイプが違う場合は
       if(type != this.type) {
-        console.log('click');
         this.type = type;
         this.get_contents();
       }
