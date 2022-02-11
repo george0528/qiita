@@ -28,7 +28,8 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
-            sudo git pull
+            sudo su
+            git pull
             cd front-end
             npm install
             cd app
