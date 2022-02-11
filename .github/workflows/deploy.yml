@@ -28,10 +28,9 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
-            sudo su
-            git pull
+            sudo git pull
             cd front-end
-            npm install
+            sudo npm install
             cd app
-            npm install
-            npm run build
+            sudo npm install
+            sudo npm run build
