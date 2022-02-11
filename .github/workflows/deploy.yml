@@ -30,7 +30,6 @@ jobs:
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
             sudo git pull
             cd front-end
-            sudo npm install
             cd app
             sudo npm install
             sudo npm run build
