@@ -4,7 +4,7 @@
   <v-bottom-navigation
       v-model="value"
       fixed
-      height="110"
+      height="90"
       background-color="white"
       color="success"
   >
@@ -42,16 +42,17 @@ export default {
 </script>
 <style scoped>
 #footer .space{
-  height: 110px;
+  height: 90px;
 }
 .v-item-group.v-bottom-navigation {
   justify-content: space-around;
 }
 .v-item-group.v-bottom-navigation .v-btn {
   width: 130px;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 .v-item-group.v-bottom-navigation .v-btn :nth-of-type(1){
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 .v-item-group.v-bottom-navigation .v-btn i {
   display: inline-block;
