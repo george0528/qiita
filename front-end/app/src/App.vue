@@ -3,7 +3,7 @@
     <div id="nav">
       <h1>Qiitaランキング</h1>
     </div>
-    
+
     <router-view/>
     <Footer />
   </v-app>
@@ -27,8 +27,12 @@ export default {
   color: #2c3e50;
 }
 
-#app a {
+.v-application a div{
   color: #2c3e50;
+}
+
+.v-application div p {
+  margin: 0;
 }
 
 #nav {
