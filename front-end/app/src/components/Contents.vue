@@ -33,9 +33,12 @@
     </div>
   </a>
 </div>
-
 </template>
-
+<style scoped>
+.v-application .title {
+  font-size: 1rem!important;
+}
+</style>
 <script>
 import Rank from '@/components/Rank.vue'
 export default {
