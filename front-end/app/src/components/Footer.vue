@@ -4,10 +4,11 @@
   <v-bottom-navigation
       v-model="value"
       fixed
+      height="110"
       background-color="white"
       color="success"
   >
-    <v-btn value="/" to="/">
+    <v-btn value="/" to="/" id="btn">
       <span>ホーム</span>
 
       <v-icon>mdi-home</v-icon>
@@ -41,6 +42,19 @@ export default {
 </script>
 <style scoped>
 #footer .space{
-  height: 56px;
+  height: 110px;
+}
+.v-item-group.v-bottom-navigation {
+  justify-content: space-around;
+}
+.v-item-group.v-bottom-navigation .v-btn {
+  width: 130px;
+}
+.v-item-group.v-bottom-navigation .v-btn :nth-of-type(1){
+  transform: scale(1.15);
+}
+.v-item-group.v-bottom-navigation .v-btn i {
+  display: inline-block;
+  margin-bottom: 5px;
 }
 </style>
