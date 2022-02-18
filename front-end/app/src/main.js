@@ -7,7 +7,6 @@ import VueAxios from 'vue-axios'
 import util from './util/util'
 import "./registerServiceWorker"
 import vuetify from './plugins/vuetify'
-import '@babel/polyfill'
 
 Vue.config.productionTip = false
 
