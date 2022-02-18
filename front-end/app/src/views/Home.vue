@@ -8,7 +8,7 @@
       <button v-if="this.type != 1" @click="changeType(1)" class="component_btn primary">週間</button>
       <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>
     </div>
-    <Contents 
+    <Contents
       :contents="this.contents" 
       :save_contents="this.save_contents"
       :is_include_id="this.is_include_id"
