@@ -49,11 +49,11 @@ export default {
 }
 .v-item-group.v-bottom-navigation .v-btn {
   width: 130px;
-  padding-bottom:env(safe-area-inset-bottom);
+  padding-bottom: 20px;
 }
-.v-item-group.v-bottom-navigation .v-btn :nth-of-type(1){
+/* .v-item-group.v-bottom-navigation .v-btn :nth-of-type(1){
   transform: scale(1.1);
-}
+} */
 .v-item-group.v-bottom-navigation .v-btn i {
   display: inline-block;
   margin-bottom: 5px;
