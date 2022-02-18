@@ -6,6 +6,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import util from './util/util'
 import "./registerServiceWorker"
+import vuetify from './plugins/vuetify'
+import '@babel/polyfill'
 
 Vue.config.productionTip = false
 
@@ -15,5 +17,6 @@ Vue.mixin(util);
 
 new Vue({
   router,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

@@ -1,13 +1,22 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/save-contents">SaveContents</router-link> |
-      <router-link to="/history">History</router-link>
+      <h1>Qiitaランキング</h1>
     </div>
+    
     <router-view/>
-  </div>
+    <Footer />
+  </v-app>
 </template>
+
+<script>
+import Footer from '@/components/Footer.vue'
+export default {
+  components: {
+    Footer
+  }
+}
+</script>
 
 <style>
 #app {
@@ -15,6 +24,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  color: #2c3e50;
+}
+
+#app a {
   color: #2c3e50;
 }
 

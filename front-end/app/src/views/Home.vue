@@ -24,7 +24,7 @@ export default {
       return {
         url: '',
         contents: {},
-        load: false ,
+        load: false,
         save_contents: {},
         cache_contents: {},
         type: 1,

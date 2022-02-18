@@ -1,6 +1,6 @@
 <template>
 <div>
-  <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :key="item.post_id">
+  <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :key="index">
     <div class="top">
       <div class="left">
         <div class="flex">
