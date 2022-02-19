@@ -8,22 +8,18 @@
     background-color="white"
     color="success"
   >
-      <button value="/" :ripple="false"  @touchend="routerPush('/')">
-      <span>ホーム touchend</span>
-      <v-icon>mdi-home</v-icon>
-    </button>
-    <v-btn @click="routerPush('/')" value="/" :ripple="false">
+    <v-btn @touchend="routerPush('/')" value="/">
       <span>ホーム</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn @click="routerPush('/save-contents')" value="/save-contents" :ripple="false">
+    <v-btn @touchend="routerPush('/save-contents')" value="/save-contents">
       <span>後で見る</span>
 
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn value="/history" @click="routerPush('/history')" :ripple="false">
+    <v-btn @touchend="routerPush('/history')" value="/history">
       <span>履歴</span>
 
       <v-icon>mdi-history</v-icon>
