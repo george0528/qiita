@@ -5,7 +5,7 @@
     fixed
     height="90"
     background-color="white"
-    color="success"
+    :color="bottomNavColor(this.$route.path)"
     :value="this.$route.path"
   >
     <v-btn @touchend="routerPush('/')" value="/">
@@ -38,6 +38,13 @@ export default {
       }
     }
   },
+  computed: {
+    bottomNavColor: function() {
+      return function(path) {
+        return this.getPathColor(path);
+      }
+    }
+  }
 }
 </script>
 <style scoped>

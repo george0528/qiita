@@ -33,22 +33,7 @@ export default {
     },
     bannerColor :function() {
       return function(path) {
-        let color = '';
-        switch (path) {
-          case '/':
-            color = 'secondary';
-            break;
-          case '/save-contents':
-            color = 'success';
-            break;
-          case '/history':
-            color = 'red';
-            break;
-          default:
-            color = 'default';
-            break;
-        }
-        return color;
+        return this.getPathColor(path);
       }
     },
   }

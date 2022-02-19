@@ -62,7 +62,7 @@ span {
   position: relative;
 }
 .content .top .right .circle.save {
-  background-color: rgb(0, 180, 0);
+  background-color: #42b983;
 }
 .content .top .right .circle:hover {
   transform: scale(1.2, 1.2);
