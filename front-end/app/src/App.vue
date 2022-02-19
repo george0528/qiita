@@ -5,12 +5,6 @@
     </div>
 
     <router-view/>
-    <button @click="routerPush('/')">click</button>
-    <router-link to="/">
-      <span>ホーム</span>
-
-      <v-icon>mdi-home</v-icon>
-    </router-link>
     <Footer />
   </v-app>
 </template>
@@ -21,11 +15,6 @@ export default {
   components: {
     Footer
   },
-  methods: {
-    routerPush(uri) {
-      this.$router.push(uri);
-    }
-  }
 }
 </script>
 

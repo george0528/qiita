@@ -8,27 +8,23 @@
     background-color="white"
     color="success"
   >
-  <router-link to="/">
+  <v-btn @click="routerPush('/')" value="/" :ripple="false">
       <span>ホーム</span>
 
       <v-icon>mdi-home</v-icon>
-  </router-link>
+  </v-btn>
 
-  <router-link to="/save-contents">
-    <v-btn value="/save-contents" :ripple="false">
-      <span>後で見る</span>
+  <v-btn @click="routerPush('/save-contents')" value="/save-contents" :ripple="false">
+    <span>後で見る</span>
 
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
-  </router-link>
+    <v-icon>mdi-heart</v-icon>
+  </v-btn>
 
-  <router-link to="/history">
-    <v-btn value="/history" :ripple="false">
-      <span>履歴</span>
+  <v-btn value="/history" @click="routerPush('/history')" :ripple="false">
+    <span>履歴</span>
 
-      <v-icon>mdi-history</v-icon>
-    </v-btn>
-  </router-link>
+    <v-icon>mdi-history</v-icon>
+  </v-btn>
   </v-bottom-navigation>
 </div>
 </template>
@@ -37,6 +33,11 @@ export default {
   data() {
     return {
       value: '/'
+    }
+  },
+  methods: {
+    routerPush(uri) {
+      this.$router.push(uri);
     }
   },
   mounted() {
