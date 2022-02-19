@@ -3,7 +3,7 @@
     <div id="nav">
       <h1>Qiitaランキング</h1>
     </div>
-
+    <Banner />
     <router-view/>
     <Footer />
   </v-app>
@@ -11,9 +11,11 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
+import Banner from './components/Banner.vue'
 export default {
   components: {
-    Footer
+    Footer,
+    Banner
   },
 }
 </script>

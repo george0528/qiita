@@ -2,11 +2,11 @@
 <div id="footer">
   <div class="space"></div>
   <v-bottom-navigation
-    v-model="value"
     fixed
     height="90"
     background-color="white"
     color="success"
+    :value="this.$route.path"
   >
     <v-btn @touchend="routerPush('/')" value="/">
       <span>ホーム</span>
@@ -29,23 +29,15 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      value: '/'
-    }
-  },
   methods: {
     routerPush(uri) {
       let current_uri = this.$route.path;
       if(current_uri != uri) {
+        console.log('遷移');
         this.$router.push(uri);
-        this.value = uri;
       }
     }
   },
-  mounted() {
-    this.value = this.$route.path;
-  }
 }
 </script>
 <style scoped>
