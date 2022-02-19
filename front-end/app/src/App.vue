@@ -5,6 +5,18 @@
     </div>
 
     <router-view/>
+    <div>
+      <v-bottom-nav
+        absolute
+      >
+        <router-link to="/">
+          home
+        </router-link>
+        <router-link to="/save-contents">
+          後で見る
+        </router-link>
+      </v-bottom-nav>
+    </div>
     <Footer />
   </v-app>
 </template>
