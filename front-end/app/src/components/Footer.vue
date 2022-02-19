@@ -36,7 +36,11 @@ export default {
   },
   methods: {
     routerPush(uri) {
-      this.$router.push(uri);
+      let current_uri = this.$route.path;
+      if(current_uri != uri) {
+        this.$router.push(uri);
+        this.value = uri;
+      }
     }
   },
   mounted() {
