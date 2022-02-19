@@ -9,11 +9,9 @@
     color="success"
   >
   <router-link to="/">
-    <v-btn value="/" :ripple="false">
       <span>ホーム</span>
 
       <v-icon>mdi-home</v-icon>
-    </v-btn>
   </router-link>
 
   <router-link to="/save-contents">
@@ -54,10 +52,20 @@ export default {
   height: 90px;
 }
 .v-item-group.v-bottom-navigation a{
- height: inherit;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  width: 130px;
+  color: rgba(0,0,0,.6);
+}
+.v-item-group.v-bottom-navigation a span, .v-icon{
+  color: inherit !important;
 }
 .router-link-exact-active.router-link-active {
   color: #4caf50 !important;
+  background-color: rgba(78,176,81, 0.3);
 }
 .v-item-group.v-bottom-navigation {
   justify-content: space-around;
