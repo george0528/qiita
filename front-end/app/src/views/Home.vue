@@ -3,7 +3,6 @@
     <div class="load" v-if="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
-    <div class="top_space"></div>
     <div class="btns">
       <button v-if="this.type != 1" @click="changeType(1)" class="component_btn primary">週間</button>
       <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>

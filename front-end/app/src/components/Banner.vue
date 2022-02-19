@@ -2,8 +2,8 @@
   <v-banner
     elevation="0"
     single-line
-    sticky
     dark
+    tile
     :color="bannerColor(this.$route.path)"
   >{{ bannerText(this.$route.path) }}</v-banner>
 </template>

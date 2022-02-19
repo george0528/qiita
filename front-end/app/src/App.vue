@@ -1,9 +1,10 @@
 <template>
   <v-app id="app">
-    <div id="nav">
-      <h1>Qiitaランキング</h1>
+    <div class="fixed">
+      <Title />
+      <Banner />
     </div>
-    <Banner />
+    <div class="top_space"></div>
     <router-view/>
     <Footer />
   </v-app>
@@ -12,14 +13,28 @@
 <script>
 import Footer from '@/components/Footer.vue'
 import Banner from './components/Banner.vue'
+import Title from './components/Title.vue'
 export default {
   components: {
     Footer,
-    Banner
+    Banner,
+    Title
   },
 }
 </script>
-
+<style scoped>
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: none;
+}
+.top_space {
+  height: 95px;
+}
+</style>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
