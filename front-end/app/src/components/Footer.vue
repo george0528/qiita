@@ -2,14 +2,14 @@
 <div id="footer">
   <div class="space"></div>
   <v-bottom-navigation
-      v-model="value"
-      fixed
-      height="90"
-      background-color="white"
-      color="success"
+    v-model="value"
+    fixed
+    height="90"
+    background-color="white"
+    color="success"
   >
   <router-link to="/">
-    <v-btn value="/">
+    <v-btn value="/" :ripple="false">
       <span>ホーム</span>
 
       <v-icon>mdi-home</v-icon>
@@ -17,7 +17,7 @@
   </router-link>
 
   <router-link to="/save-contents">
-    <v-btn value="/save-contents">
+    <v-btn value="/save-contents" :ripple="false">
       <span>後で見る</span>
 
       <v-icon>mdi-heart</v-icon>
@@ -25,7 +25,7 @@
   </router-link>
 
   <router-link to="/history">
-    <v-btn value="/history">
+    <v-btn value="/history" :ripple="false">
       <span>履歴</span>
 
       <v-icon>mdi-history</v-icon>
