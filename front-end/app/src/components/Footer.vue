@@ -8,23 +8,27 @@
     background-color="white"
     color="success"
   >
-  <v-btn @click="routerPush('/')" value="/" :ripple="false">
+  <v-btn @click="routerPush('/')">v-btn</v-btn>
+    <button value="/" :ripple="false"  @click="routerPush('/')">
       <span>ホーム</span>
-
       <v-icon>mdi-home</v-icon>
-  </v-btn>
+    </button>
+    <v-btn @click="routerPush('/')" value="/" :ripple="false">
+      <span>ホーム</span>
+      <v-icon>mdi-home</v-icon>
+    </v-btn>
 
-  <v-btn @click="routerPush('/save-contents')" value="/save-contents" :ripple="false">
-    <span>後で見る</span>
+    <v-btn @click="routerPush('/save-contents')" value="/save-contents" :ripple="false">
+      <span>後で見る</span>
 
-    <v-icon>mdi-heart</v-icon>
-  </v-btn>
+      <v-icon>mdi-heart</v-icon>
+    </v-btn>
 
-  <v-btn value="/history" @click="routerPush('/history')" :ripple="false">
-    <span>履歴</span>
+    <v-btn value="/history" @click="routerPush('/history')" :ripple="false">
+      <span>履歴</span>
 
-    <v-icon>mdi-history</v-icon>
-  </v-btn>
+      <v-icon>mdi-history</v-icon>
+    </v-btn>
   </v-bottom-navigation>
 </div>
 </template>
@@ -52,7 +56,7 @@ export default {
 #footer .space{
   height: 90px;
 }
-.v-item-group.v-bottom-navigation a{
+.v-item-group.v-bottom-navigation a, button{
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
