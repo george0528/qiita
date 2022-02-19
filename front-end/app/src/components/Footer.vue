@@ -8,9 +8,8 @@
     background-color="white"
     color="success"
   >
-  <v-btn @click="routerPush('/')">v-btn</v-btn>
-    <button value="/" :ripple="false"  @click="routerPush('/')">
-      <span>ホーム</span>
+      <button value="/" :ripple="false"  @touchend="routerPush('/')">
+      <span>ホーム touchend</span>
       <v-icon>mdi-home</v-icon>
     </button>
     <v-btn @click="routerPush('/')" value="/" :ripple="false">
