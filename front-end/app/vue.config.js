@@ -1,3 +1,9 @@
 module.exports = {
-    publicPath: './'
+    publicPath: './',
+    pwa: {
+        workboxPluginMode: 'GenerateSW',
+        workboxOptions: {
+        exclude: /_htaccess/
+        }
+    }
 }
