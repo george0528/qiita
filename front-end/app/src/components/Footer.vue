@@ -8,18 +8,18 @@
     :color="bottomNavColor(this.$route.path)"
     :value="this.$route.path"
   >
-    <v-btn v-my-touch:tap="routerPush('/')" value="/">
+    <v-btn v-my-touch:tap="touchHome" value="/">
       <span>ホーム</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn v-my-touch:tap="routerPush('/save-contents')" value="/save-contents">
+    <v-btn v-my-touch:tap="touchSave" value="/save-contents">
       <span>後で見る</span>
 
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn v-my-touch:tap="routerPush('/history')" value="/history">
+    <v-btn v-my-touch:tap="touchHistory" value="/history">
       <span>履歴</span>
 
       <v-icon>mdi-history</v-icon>
@@ -33,9 +33,17 @@ export default {
     routerPush(uri) {
       let current_uri = this.$route.path;
       if(current_uri != uri) {
-        console.log('遷移');
         this.$router.push(uri);
       }
+    },
+    touchHome() {
+      this.routerPush('/');
+    },
+    touchSave() {
+      this.routerPush('/save-contents'); 
+    },
+    touchHistory() {
+      this.routerPush('/history');
     }
   },
   computed: {
