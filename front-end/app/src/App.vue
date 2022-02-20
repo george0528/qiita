@@ -30,6 +30,7 @@ export default {
   width: 100%;
   z-index: 1000;
   box-shadow: none;
+  height: 95px;
 }
 .top_space {
   height: 95px;

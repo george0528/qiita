@@ -2,6 +2,7 @@
   <v-app-bar
     elevation="0"
     title
+    height="56"
     color="white"
   >
     <v-app-bar-title class="title">

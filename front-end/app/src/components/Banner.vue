@@ -4,6 +4,7 @@
     single-line
     dark
     tile
+    height="39"
     :color="bannerColor(this.$route.path)"
   >{{ bannerText(this.$route.path) }}</v-banner>
 </template>
