@@ -2,6 +2,7 @@
   <v-app id="app">
     <div class="fixed">
       <Title />
+      <Tabs />
       <Banner />
     </div>
     <div class="top_space"></div>
@@ -12,13 +13,15 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
-import Banner from './components/Banner.vue'
-import Title from './components/Title.vue'
+import Banner from '@/components/Banner.vue'
+import Title from '@/components/Title.vue'
+import Tabs from '@/components/Tabs'
 export default {
   components: {
     Footer,
     Banner,
-    Title
+    Title,
+    Tabs
   },
 }
 </script>
