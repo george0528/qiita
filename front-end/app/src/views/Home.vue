@@ -4,10 +4,6 @@
     <div class="load" v-if="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
-    <div class="btns">
-      <button v-if="this.type != 1" @click="changeType(1)" class="component_btn primary">週間</button>
-      <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>
-    </div>
     <v-tabs-items :value="this.$store.state.tab">
       <v-tab-item eager>
         <Contents
@@ -20,7 +16,7 @@
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.contents" 
+          :contents="this.month_contents" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -37,6 +33,7 @@ export default {
       return {
         url: 'https://back-end.qiita-my-ranking.online/api/ranking',
         contents: {},
+        month_contents: {},
         load: false,
         save_contents: {},
         cache_contents: {},
@@ -51,7 +48,7 @@ export default {
       console.log(v);
     },
     // ランキング取得
-    get_contents() {
+    get_contents(type) {
       this.cache_contents = JSON.parse(localStorage.getItem('contents'));
       // ローカルストレージにコンテンツがあればとりあえず表示
       this.contents = this.cache_contents;
@@ -62,18 +59,25 @@ export default {
 
       return this.axios.get(this.url, {
         params: {
-          type: this.type
+          type: type
         }
       })
       .then((response) => {
         let contents = response.data;
-        // 現在のコンテンツと比較して
-        if(!this.array_compare(this.cache_contents, contents)) {
-          // 配列追加
-          this.contents = contents;
-        }
+        // 週間ランキング
+        if(type == 1) {
+          // 現在のコンテンツと比較して
+          if(!this.array_compare(this.cache_contents, contents)) {
+            // 配列追加
+            this.contents = contents;
+          }
         // ローカルストレージにコンテンツをキャッシュとして保存
         localStorage.setItem('contents', JSON.stringify(contents));
+        }
+        // 月間ランキング取得
+        if(type == 2) {
+          this.month_contents = contents;
+        }
         this.load = false;
       })
       .catch(e => {
@@ -133,8 +137,11 @@ export default {
       return false;
     } 
   },
+  beforeMount() {
+    this.get_contents(1);
+    this.get_contents(2);
+  },
   mounted : function() {
-    this.get_contents();
     this.get_save_contents();
   },
   computed: {
