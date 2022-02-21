@@ -2,8 +2,8 @@
   <v-app id="app">
     <div class="fixed">
       <Title />
-      <Tabs />
       <Banner />
+      <Tabs />
     </div>
     <div class="top_space"></div>
     <router-view/>

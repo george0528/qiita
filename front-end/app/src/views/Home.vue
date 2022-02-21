@@ -1,5 +1,6 @@
 <template>
   <div class="Home">
+    <div class="top_space"></div>
     <div class="load" v-if="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
@@ -7,13 +8,26 @@
       <button v-if="this.type != 1" @click="changeType(1)" class="component_btn primary">週間</button>
       <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>
     </div>
-    <Contents
-      :contents="this.contents" 
-      :save_contents="this.save_contents"
-      :is_include_id="this.is_include_id"
-      @toggle_btn_click="toggle_save"
-      :rank="true"
-    />
+    <v-tabs-items :value="this.$store.state.tab">
+      <v-tab-item>
+        <Contents
+          :contents="this.contents" 
+          :save_contents="this.save_contents"
+          :is_include_id="this.is_include_id"
+          @toggle_btn_click="toggle_save"
+          :rank="true"
+        />
+      </v-tab-item>
+      <v-tab-item>
+        <Contents
+          :contents="this.contents" 
+          :save_contents="this.save_contents"
+          :is_include_id="this.is_include_id"
+          @toggle_btn_click="toggle_save"
+          :rank="true"
+        />
+      </v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 <script>
@@ -21,7 +35,7 @@ import Contents from '@/components/Contents.vue'
 export default {
   data() {
       return {
-        url: '',
+        url: 'https://back-end.qiita-my-ranking.online/api/ranking',
         contents: {},
         load: false,
         save_contents: {},
@@ -33,6 +47,9 @@ export default {
     Contents,
   },
   methods : {
+    changeTab(v) {
+      console.log(v);
+    },
     // ランキング取得
     get_contents() {
       this.cache_contents = JSON.parse(localStorage.getItem('contents'));
@@ -117,7 +134,6 @@ export default {
     } 
   },
   mounted : function() {
-    this.url = 'https://back-end.qiita-my-ranking.online/api/ranking';
     this.get_contents();
     this.get_save_contents();
   },
@@ -135,6 +151,14 @@ export default {
           return 'circle';
         }
       }
+    },
+    model_tab: {
+      get () {
+        return this.tab
+      },
+      set (new_tab) {
+        this.$store.commit('changeTab', new_tab);
+      }
     }
   }
 }
@@ -142,4 +166,9 @@ export default {
 <style>
   @import "../assets/css/content.css";
   @import "../assets/css/style.css";
+</style>
+<style scoped>
+  .top_space {
+    height: 48px;
+  }
 </style>

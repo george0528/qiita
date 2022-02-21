@@ -20,7 +20,12 @@ Vue.mixin(util);
 
 const store = new Vuex.Store({
   state: {
-    message: 'Hello Vuex!!!',
+    tab: 0,
+  },
+  mutations: {
+    changeTab(state, tab) {
+      state.tab = tab
+    }
   },
 })
 
