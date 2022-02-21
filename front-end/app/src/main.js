@@ -18,8 +18,15 @@ Vue.use(Vue2TouchEvents, {
 });
 Vue.mixin(util);
 
+const store = new Vuex.Store({
+  state: {
+    message: 'Hello Vuex!!!',
+  },
+})
+
 new Vue({
   router,
   vuetify,
+  store,
   render: h => h(App)
 }).$mount('#app')
