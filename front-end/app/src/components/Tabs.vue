@@ -35,9 +35,11 @@ export default {
       this.$store.commit('changeTab', new_tab);
     },
     changeTabWeek() {
+      this.tab = 0;
       this.changeTab(0);
     },
     changeTabMonth() {
+      this.tab = 1;
       this.changeTab(1);
     },
   },
