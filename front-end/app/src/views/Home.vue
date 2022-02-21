@@ -9,7 +9,7 @@
       <button v-if="this.type != 2" @click="changeType(2)" class="component_btn primary">月間</button>
     </div>
     <v-tabs-items :value="this.$store.state.tab">
-      <v-tab-item>
+      <v-tab-item eager>
         <Contents
           :contents="this.contents" 
           :save_contents="this.save_contents"
@@ -18,7 +18,7 @@
           :rank="true"
         />
       </v-tab-item>
-      <v-tab-item>
+      <v-tab-item eager>
         <Contents
           :contents="this.contents" 
           :save_contents="this.save_contents"

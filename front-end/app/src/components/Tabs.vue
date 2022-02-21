@@ -3,14 +3,12 @@
     fixed-tabs
     v-if="isHome()"
     v-model="tab"
-    @change="changeTab"
   >
-    <v-tab
-      v-for="item in tabs"
-      :key="item.type"
-      :value="item.value"
-    >
-      {{ item.type }}
+    <v-tab v-my-touch:tap="changeTabWeek">
+      週間
+    </v-tab>
+    <v-tab v-my-touch:tap="changeTabMonth">
+      月間
     </v-tab>
   </v-tabs>
 </template>
@@ -19,18 +17,6 @@
 export default {
   data() {
     return {
-      tabs: [
-        {
-          type: '週間',
-          value: 'week',
-          uri: '/',
-        },
-        {
-          type: '月間',
-          value: 'month',
-          uri: '/save-contents'
-        }
-      ],
       tab: null
     }
   },
@@ -47,7 +33,13 @@ export default {
   methods: {
     changeTab(new_tab) {
       this.$store.commit('changeTab', new_tab);
-    }
+    },
+    changeTabWeek() {
+      this.changeTab(0);
+    },
+    changeTabMonth() {
+      this.changeTab(1);
+    },
   },
   mounted() {
     this.tab = this.$store.state.tab;
