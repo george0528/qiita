@@ -2,7 +2,8 @@
   <v-tabs
     fixed-tabs
     v-if="isHome()"
-    v-model="tab"
+    @change="changeTab"
+    :value="this.$store.state.tab"
   >
     <v-tab v-my-touch:tap="changeTabWeek">
       週間

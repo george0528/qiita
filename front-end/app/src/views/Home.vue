@@ -4,7 +4,7 @@
     <div class="load" v-if="load">
       <div v-if="load" class="component_load_circle"></div>
     </div>
-    <v-tabs-items :value="this.$store.state.tab">
+    <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
           :contents="this.contents" 
@@ -44,8 +44,8 @@ export default {
     Contents,
   },
   methods : {
-    changeTab(v) {
-      console.log(v);
+    changeTabItem(new_tab) {
+      this.$store.commit('changeTab', new_tab);
     },
     // ランキング取得
     get_contents(type) {
