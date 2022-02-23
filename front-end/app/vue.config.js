@@ -3,7 +3,7 @@ module.exports = {
     pwa: {
         workboxPluginMode: 'GenerateSW',
         workboxOptions: {
-        exclude: /.htaccess/
+        exclude: [/.htaccess/]
         }
     }
 }

@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createApp, h } from 'vue';
+import { createStore } from 'vuex'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
@@ -9,16 +9,8 @@ import "./registerServiceWorker"
 import vuetify from './plugins/vuetify'
 import Vue2TouchEvents from 'vue2-touch-events'
 
-Vue.config.productionTip = false
 
-Vue.use(VueAxios,axios);
-Vue.use(Vuex);
-Vue.use(Vue2TouchEvents, {
-  namespace: 'my-touch'
-});
-Vue.mixin(util);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     tab: 0,
   },
@@ -29,9 +21,13 @@ const store = new Vuex.Store({
   },
 })
 
-new Vue({
-  router,
-  vuetify,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+const app = createApp({
+  render: () => h(App)
+}).use(router).use(store).mount('#app')
+
+app.use(vuetify);
+app.use(VueAxios,axios);
+app.use(Vue2TouchEvents, {
+  namespace: 'my-touch'
+});
+app.mixin(util);

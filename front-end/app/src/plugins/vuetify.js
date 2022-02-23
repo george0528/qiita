@@ -1,13 +1,6 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import ja from 'vuetify/lib/locale/ja';
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/lib/components";
+import * as directives from "vuetify/lib/directives";
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
-    lang: {
-      locales: { ja },
-      current: 'ja',
-    },
-});
+export default vuetify = createVuetify({ components, directives });

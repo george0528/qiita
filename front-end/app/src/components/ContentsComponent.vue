@@ -5,7 +5,7 @@
       <div class="left">
         <div class="flex">
           <p class="date">{{ content_date(item.created_at) }}</p>
-          <Rank :index="index" v-if="rank"/>
+          <RankComponent :index="index" v-if="rank"/>
           <!-- <p class="date" v-if="item.history_date">{{ history_date(item.history_date) }}</p> -->
         </div>
         <p class="title">{{ item.title }}</p>
@@ -40,12 +40,12 @@
 }
 </style>
 <script>
-import Rank from '@/components/Rank.vue'
+import RankComponent from '@/components/RankComponent.vue'
 export default {
-  name: 'Contents',
+  name: 'ContentsComponent',
   props: ['contents', 'save_contents', 'is_include_id', 'rank'],
   components: {
-    Rank
+    RankComponent
   },
   methods: {
     clickToggleSave(item) {

@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'Crown',
+  name: 'CrownComponent',
   props: ['num'],
 }
 </script>
