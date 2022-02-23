@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import utilsFunction from '../util/utils.vue';
+const utils = utilsFunction();
 export default {
   computed: {
     bannerText :function() {
@@ -34,7 +36,7 @@ export default {
     },
     bannerColor :function() {
       return function(path) {
-        return this.getPathColor(path);
+        return utils.getPathColor(path);
       }
     },
   }

@@ -41,6 +41,8 @@
 </style>
 <script>
 import RankComponent from '@/components/RankComponent.vue'
+import utilsFunction from '../util/utils.vue';
+const utils = utilsFunction();
 export default {
   name: 'ContentsComponent',
   props: ['contents', 'save_contents', 'is_include_id', 'rank'],
@@ -55,7 +57,7 @@ export default {
       // 履歴追加処理
       let now = new Date();
       item.history_date = now;
-      this.addHistory(item);
+      utils.addHistory(item);
       window.location.href = item.post_url;
     }
   },

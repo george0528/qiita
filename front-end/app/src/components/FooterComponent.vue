@@ -28,6 +28,8 @@
 </div>
 </template>
 <script>
+import utilsFunction from '../util/utils.vue';
+const utils = utilsFunction();
 export default {
   methods: {
     routerPush(uri) {
@@ -49,7 +51,7 @@ export default {
   computed: {
     bottomNavColor: function() {
       return function(path) {
-        return this.getPathColor(path);
+        return utils.getPathColor(path);
       }
     }
   }

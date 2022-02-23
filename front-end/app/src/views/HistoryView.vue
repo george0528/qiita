@@ -13,6 +13,8 @@
 
 <script>
 import ContentsComponent from '@/components/ContentsComponent.vue'
+import utilsFunction from '../util/utils.vue';
+const utils = utilsFunction();
 export default {
   data() {
     return {
@@ -78,7 +80,7 @@ export default {
     }
   },
   mounted() {
-    this.contents = this.getHistory().reverse();
+    this.contents = utils.getHistory().reverse();
     this.get_save_contents();
   }
 }

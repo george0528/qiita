@@ -1,7 +1,7 @@
 <template>
   <v-tabs
     fixed-tabs
-    v-if="isHome()"
+    v-if="isHome(this.$route.path)"
     @change="changeTab"
     :value="this.$store.state.tab"
   >
@@ -23,8 +23,8 @@ export default {
   },
   computed: {
     isHome: function() {
-      return function() {
-        if(this.$route.path == '/') {
+      return function(path) {
+        if(path == '/') {
           return true;
         }
         return false;
