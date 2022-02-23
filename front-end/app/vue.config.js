@@ -5,5 +5,10 @@ module.exports = {
         workboxOptions: {
         exclude: [/.htaccess/]
         }
+    },
+    configureWebpack: {
+        devServer: {
+            historyApiFallback: true
+        }
     }
 }
