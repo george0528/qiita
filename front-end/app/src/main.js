@@ -6,7 +6,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import "./registerServiceWorker"
 import { vuetify } from './plugins/vuetify'
-import Vue2TouchEvents from 'vue2-touch-events'
+import Vue3TouchEvents from 'vue3-touch-events';
 
 
 const store = createStore({
@@ -26,6 +26,6 @@ const app = createApp({
 
 app.use(vuetify);
 app.use(VueAxios,axios);
-app.use(Vue2TouchEvents, {
+app.use(Vue3TouchEvents, {
   namespace: 'my-touch'
 });
