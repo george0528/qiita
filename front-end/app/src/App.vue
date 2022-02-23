@@ -1,27 +1,27 @@
 <template>
   <v-app id="app">
     <div class="fixed">
-      <Title />
-      <Banner />
-      <Tabs />
+      <TitleComponent />
+      <BannerComponent />
+      <TabsComponent />
     </div>
     <div class="top_space"></div>
     <router-view/>
-    <Footer />
+    <FooterComponent />
   </v-app>
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue'
-import Banner from '@/components/Banner.vue'
-import Title from '@/components/Title.vue'
-import Tabs from '@/components/Tabs'
+import FooterComponent from '@/components/FooterComponent.vue'
+import BannerComponent from '@/components/BannerComponent.vue'
+import TitleComponent from '@/components/TitleComponent.vue'
+import TabsComponent from '@/components/TabsComponent'
 export default {
   components: {
-    Footer,
-    Banner,
-    Title,
-    Tabs
+    FooterComponent,
+    BannerComponent,
+    TitleComponent,
+    TabsComponent
   },
 }
 </script>

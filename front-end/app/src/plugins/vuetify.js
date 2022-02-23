@@ -3,4 +3,4 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/lib/components";
 import * as directives from "vuetify/lib/directives";
 
-export default vuetify = createVuetify({ components, directives });
+export const vuetify = createVuetify({ components, directives });

@@ -6,7 +6,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import util from './util/util'
 import "./registerServiceWorker"
-import vuetify from './plugins/vuetify'
+import { vuetify } from './plugins/vuetify'
 import Vue2TouchEvents from 'vue2-touch-events'
 
 
