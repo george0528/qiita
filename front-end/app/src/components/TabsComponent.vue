@@ -5,10 +5,10 @@
     @change="changeTab"
     :value="this.$store.state.tab"
   >
-    <v-tab v-my-touch:tap="changeTabWeek">
+    <v-tab @click="changeTabWeek">
       週間
     </v-tab>
-    <v-tab v-my-touch:tap="changeTabMonth">
+    <v-tab @click="changeTabMonth">
       月間
     </v-tab>
   </v-tabs>

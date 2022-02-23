@@ -16,7 +16,7 @@
       <div class="right" >
         <div @click.stop.prevent="clickToggleSave(item)" :class="is_save_content(item.post_id)">
           <div class="bookmark">
-          <img src="@/assets/img/bookmark.png" alt="">
+          <img :src="require('@/assets/img/bookmark.png')" alt="">
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         <span>{{ item.user_name }}</span>
       </div>
       <div class="good">
-        <img src="@/assets/img/good.png" alt="">
+        <img :src="require('@/assets/img/good.png')" alt="">
         <span>{{ item.likes_count }}</span>
       </div>
     </div>

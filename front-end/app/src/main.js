@@ -22,10 +22,12 @@ const store = createStore({
 
 const app = createApp({
   render: () => h(App)
-}).use(router).use(store).mount('#app')
+}).use(router).use(store)
 
 app.use(vuetify);
 app.use(VueAxios,axios);
 app.use(Vue3TouchEvents, {
   namespace: 'my-touch'
 });
+
+app.mount('#app')

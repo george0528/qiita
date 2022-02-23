@@ -8,18 +8,18 @@
     :color="bottomNavColor(this.$route.path)"
     :value="this.$route.path"
   >
-    <v-btn v-my-touch:tap="touchHome" value="/">
+    <v-btn @click="touchHome" value="/">
       <span>ホーム</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn v-my-touch:tap="touchSave" value="/save-contents">
+    <v-btn @click="touchSave" value="/save-contents">
       <span>後で見る</span>
 
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn v-my-touch:tap="touchHistory" value="/history">
+    <v-btn @click="touchHistory" value="/history">
       <span>履歴</span>
 
       <v-icon>mdi-history</v-icon>
