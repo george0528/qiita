@@ -90,19 +90,24 @@ export default {
 .v-item-group.v-bottom-navigation .v-btn {
   width: 130px;
 }
-.v-item-group.v-bottom-navigation .v-btn :nth-of-type(1){
-  transform: scale(1.1);
-}
 .v-item-group.v-bottom-navigation .v-btn i {
   display: inline-block;
   margin-bottom: 5px;
 }
 /* こっちが上のspan(icon) */
 .v-item-group.v-bottom-navigation .v-btn span span:nth-of-type(2) {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
+  transform: scale(1.3);
 }
 /* メニューのタイトル */
 .v-item-group.v-bottom-navigation .v-btn span span:nth-of-type(1) {
-  margin-bottom: 25px;
+  padding-bottom: 25px;
+  transform: scale(1.3);
+}
+
+@media screen and (max-width: 400px) {
+  .v-item-group.v-bottom-navigation .v-btn {
+    width: 30%;
+  }
 }
 </style>
