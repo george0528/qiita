@@ -5,5 +5,11 @@ module.exports = {
         workboxOptions: {
         exclude: /.htaccess/
         }
+    },
+    pluginOptions: {
+        // ↓ コレを追加
+        webpackBundleAnalyzer: {
+            openAnalyzer: false
+        },
     }
 }
