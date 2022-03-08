@@ -80,8 +80,7 @@ export default {
         }
         this.load = false;
       })
-      .catch(e => {
-        console.log(e);
+      .catch(() => {
         this.load = false;
       });
     },
