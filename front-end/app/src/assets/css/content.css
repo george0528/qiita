@@ -63,7 +63,7 @@ span {
   position: relative;
 }
 .content .top .right .circle.save {
-  background-color: #42b983;
+  background-color: rgb(0, 180, 0);
 }
 .content .top .right .circle:hover {
   transform: scale(1.2, 1.2);
@@ -112,7 +112,7 @@ span {
 .content .top .left .flex .date {
   color: gray;
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
 }
 .content .top .left .title {
   font-weight: bold;

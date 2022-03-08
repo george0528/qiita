@@ -9,7 +9,11 @@
   </g>
 </svg>
 </template>
-
+<style scoped>
+  svg {
+    margin-bottom: 2px;
+  }
+</style>
 <script>
 export default {
   name: 'Crown',
