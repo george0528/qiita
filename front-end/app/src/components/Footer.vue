@@ -10,25 +10,36 @@
   >
     <v-btn v-my-touch:tap="tapBtn" value="/">
       <span>ホーム</span>
-      <v-icon>mdi-home</v-icon>
+      <v-icon>{{ icons.home }}</v-icon>
     </v-btn>
 
     <v-btn v-my-touch:tap="tapBtn" value="/save-contents">
       <span>後で見る</span>
 
-      <v-icon>mdi-heart</v-icon>
+      <v-icon>{{ icons.heart }}</v-icon>
     </v-btn>
 
     <v-btn v-my-touch:tap="tapBtn" value="/history">
       <span>履歴</span>
 
-      <v-icon>mdi-history</v-icon>
+      <v-icon>{{ icons.history }}</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </div>
 </template>
 <script>
+import { mdiHome, mdiHeart, mdiHistory } from '@mdi/js';
+
 export default {
+  data() {
+    return {
+      icons: {
+        home: mdiHome,
+        heart: mdiHistory,
+        history: mdiHeart
+      }
+    }
+  },
   methods: {
     routerPush(path) {
       let current_uri = this.$route.path;
