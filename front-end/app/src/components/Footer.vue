@@ -68,7 +68,7 @@ export default {
 #footer .space{
   height: 90px;
 }
-.v-item-group.v-bottom-navigation a, button{
+.v-item-group.v-bottom-navigation button{
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
@@ -97,7 +97,12 @@ export default {
   display: inline-block;
   margin-bottom: 5px;
 }
-.v-item-group.v-bottom-navigation .v-btn span span {
-  margin-bottom: 20px;
+/* こっちが上のspan(icon) */
+.v-item-group.v-bottom-navigation .v-btn span span:nth-of-type(2) {
+  margin-bottom: 10px;
+}
+/* メニューのタイトル */
+.v-item-group.v-bottom-navigation .v-btn span span:nth-of-type(1) {
+  margin-bottom: 25px;
 }
 </style>
