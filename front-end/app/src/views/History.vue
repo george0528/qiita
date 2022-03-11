@@ -2,11 +2,11 @@
 <div id="History">
   <div class="top_space"></div>
   <Contents 
-      :contents="this.contents" 
-      :save_contents="this.save_contents"
-      :is_include_id="this.is_include_id"
-      @toggle_btn_click="toggle_save"
-      :rank="false"
+    :contents="this.contents" 
+    :save_contents="this.save_contents"
+    :is_include_id="this.is_include_id"
+    @toggle_btn_click="toggle_save"
+    :rank="false"
   />
 </div>
 </template>
