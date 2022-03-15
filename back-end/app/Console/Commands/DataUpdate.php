@@ -140,6 +140,12 @@ class DataUpdate extends Command
   {
     $old_data = DB::table($db_name)->get();
     $new_rank_titles = $this->getNewRankIds($old_data, $db_datas);
+    // is_new追加
+    foreach ($db_datas as $index => $data) {
+      if(in_array($data['title'], $new_rank_titles)) {
+        $db_datas[$index]['is_new'] = true;
+      }
+    }
     // 古いDBデータ削除
     DB::table($db_name)->delete();
     // DBに保存
