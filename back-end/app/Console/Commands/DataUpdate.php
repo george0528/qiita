@@ -49,12 +49,12 @@ class DataUpdate extends Command
   public function handle()
   {
     // 週間ランキング
-    $this->main(7, 'posts', 5);
+    $new_week_rank_titles = $this->main(7, 'posts', 5);
     // 月間ランキング
     $this->main(30, 'month_posts', 15);
     // メール送信
     $now = Carbon::now();
-    Mail::send('email.send', ['time' => $now], function($message) {
+    Mail::send('email.send', ['time' => $now, 'new_week_rank_titles' => $new_week_rank_titles], function($message) {
       $message->to('aleph0528@gmail.com')
       ->from('aleph0528@gmail.com', 'qiita-my-ranking')
       ->subject('Qiitaの週間ランキングのデータを更新しました');
@@ -78,7 +78,9 @@ class DataUpdate extends Command
     $sort_contents = $this->sort_likes_count($total_contents);
     // DB用にデータの様式を変更する
     $db_datas = $this->create_db_datas($sort_contents);
-    $this->update_db($db_name, $db_datas);
+    $new_rank_titles = $this->update_db($db_name, $db_datas);
+    Log::info($db_name."のデータを更新しました");
+    return $new_rank_titles;
   }
 
   // データ取得のリクエストデータを作成
@@ -123,7 +125,6 @@ class DataUpdate extends Command
       // pageの配列が尽きたら
       if(count($contents) != $this->per_page) {
         $loop_flag = false;
-        info('合計page数', [$options['query']['page']]);
         break;
       }
       if($count == 5) {
@@ -132,16 +133,18 @@ class DataUpdate extends Command
       $count++;
     }
     return $total_contents;
-    Log::alert("データを更新しました");
   }
 
   // データベースの更新
   public function update_db($db_name, $db_datas)
   {
+    $old_data = DB::table($db_name)->get();
+    $new_rank_titles = $this->getNewRankIds($old_data, $db_datas);
     // 古いDBデータ削除
     DB::table($db_name)->delete();
     // DBに保存
     DB::table($db_name)->insert($db_datas);
+    return $new_rank_titles;
   }
 
   // LikeCount順に並べ替え
@@ -197,5 +200,15 @@ class DataUpdate extends Command
       $db_datas[] = $data;
     }
     return $db_datas;
+  }
+
+  // 新規のランキングのIDを取得
+  public function getNewRankIds($old_data, $db_datas)
+  {
+    $new_db_data = collect($db_datas);
+    $new_data_ids = $new_db_data->pluck('post_id');
+    $new_rank_titles = $old_data->whereNotIn('post_id', $new_data_ids)->pluck('title');
+    // コレクションではemptyに引っかからないため
+    return $new_rank_titles->toArray();
   }
 }
