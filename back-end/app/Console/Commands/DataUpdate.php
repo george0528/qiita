@@ -211,7 +211,6 @@ class DataUpdate extends Command
   // 新規のランキングのIDを取得
   public function getNewRankTitles($old_data, $db_datas)
   {
-    $old_data = collect($old_data);
     $new_db_data = collect($db_datas);
     $old_data_ids = $old_data->pluck('post_id');
     $new_rank_titles = $new_db_data->whereNotIn('post_id', $old_data_ids)->pluck('title');
