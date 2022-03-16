@@ -139,7 +139,7 @@ class DataUpdate extends Command
   public function update_db($db_name, $db_datas)
   {
     $old_data = DB::table($db_name)->get();
-    $new_rank_titles = $this->getNewRankIds($old_data, $db_datas);
+    $new_rank_titles = $this->getNewRankTitles($old_data, $db_datas);
     // is_new追加
     foreach ($db_datas as $index => $data) {
       if(in_array($data['title'], $new_rank_titles)) {
@@ -209,11 +209,12 @@ class DataUpdate extends Command
   }
 
   // 新規のランキングのIDを取得
-  public function getNewRankIds($old_data, $db_datas)
+  public function getNewRankTitles($old_data, $db_datas)
   {
+    $old_data = collect($old_data);
     $new_db_data = collect($db_datas);
-    $new_data_ids = $new_db_data->pluck('post_id');
-    $new_rank_titles = $old_data->whereNotIn('post_id', $new_data_ids)->pluck('title');
+    $old_data_ids = $old_data->pluck('post_id');
+    $new_rank_titles = $new_db_data->whereNotIn('post_id', $old_data_ids)->pluck('title');
     // コレクションではemptyに引っかからないため
     return $new_rank_titles->toArray();
   }
