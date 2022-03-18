@@ -144,6 +144,8 @@ class DataUpdate extends Command
     foreach ($db_datas as $index => $data) {
       if(in_array($data['title'], $new_rank_titles)) {
         $db_datas[$index]['is_new'] = true;
+      } else {
+        $db_datas[$index]['is_new'] = false;
       }
     }
     // 古いDBデータ削除
