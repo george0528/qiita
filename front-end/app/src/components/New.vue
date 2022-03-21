@@ -1,6 +1,6 @@
 <template>
   <div id="New">
-    <img src="@/assets/img/new.png" alt="">
+    <img src="@/assets/img/new2.png" alt="">
   </div>
 </template>
 
