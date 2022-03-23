@@ -10,10 +10,17 @@ export default {
     },
     addHistory(item) {
       let history_contents = this.getHistory();
+
       if(history_contents == null) {
         this.setHistory([item]);
         return;
       }
+
+      // 上限を超えていたら削除
+      while(history_contents.length > 50) {
+        history_contents.shift();
+      }
+
       history_contents.push(item);
       this.setHistory(history_contents);
     },
