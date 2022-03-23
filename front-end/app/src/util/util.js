@@ -21,8 +21,16 @@ export default {
         history_contents.shift();
       }
 
+      // ダブりが在れば除外
+      history_contents = this.exclusionIdContent(history_contents, item.id);
+      
       history_contents.push(item);
       this.setHistory(history_contents);
+    },
+    // contentsの中に同じidがあれば除外する
+    exclusionIdContent(contents, id) {
+      let new_contents = contents.filter(content => content.id != id);
+      return new_contents;
     },
     getPathColor(path) {
       let color = '';
