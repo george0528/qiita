@@ -35,8 +35,8 @@ export default {
     return {
       icons: {
         home: mdiHome,
-        heart: mdiHistory,
-        history: mdiHeart
+        heart: mdiHeart,
+        history: mdiHistory
       }
     }
   },
