@@ -142,6 +142,7 @@ export default {
   },
   mounted : function() {
     this.get_save_contents();
+    window.scrollTo(0, 0); 
   },
   computed: {
     is_save_content: function() {

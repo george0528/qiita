@@ -80,6 +80,7 @@ export default {
   mounted() {
     this.contents = this.getHistory().reverse();
     this.get_save_contents();
+    window.scrollTo(0, 0); 
   }
 }
 </script>

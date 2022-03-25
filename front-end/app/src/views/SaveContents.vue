@@ -57,11 +57,12 @@ export default {
       return this.save_contents.find(content => content.post_id === content_id);
     }
   },
-  mounted : function() {
+  mounted() {
     this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
     this.get_save_contents();
     this.contents = this.save_contents;
     this.contents.reverse();
+    window.scrollTo(0, 0); 
   }
 }
 </script>
