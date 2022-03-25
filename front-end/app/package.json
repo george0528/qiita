@@ -16,7 +16,7 @@
     "vue-axios": "^3.4.1",
     "vue-router": "^3.2.0",
     "vue2-touch-events": "^3.2.2",
-    "vuetify": "^2.4.0",
+    "vuetify": "^2.6.4",
     "vuetify-loader": "^1.7.3",
     "vuex": "^3.6.2"
   },
