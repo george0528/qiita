@@ -22,6 +22,7 @@ class CreateMonthPostsTable extends Migration
             $table->text('user_name');
             $table->integer('likes_count');
             $table->boolean('is_new')->default(false);
+            $table->integer('rank');
             $table->date('created_at');
             $table->json('tags')->nullable();
         });

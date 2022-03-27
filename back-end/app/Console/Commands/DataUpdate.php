@@ -192,7 +192,10 @@ class DataUpdate extends Command
   public function create_db_datas($sort_contents)
   {
     $db_datas = [];
-    foreach ($sort_contents as $content) {
+    foreach ($sort_contents as $index => $content) {
+      // rankingが0からにならないように
+      $index++;
+      
       // DB用データ作成
       $data = [
         'post_id' => $content['id'],
@@ -202,6 +205,7 @@ class DataUpdate extends Command
         'user_name' => $content['user']['id'],
         'likes_count' => $content['likes_count'],
         'created_at' => $content['created_at'],
+        'rank' => $index,
         'tags' => json_encode($content['tags'])
       ];
       // 配列に追加
