@@ -31,7 +31,7 @@ import Contents from '@/components/Contents.vue'
 export default {
   data() {
       return {
-        url: 'https://back-end.qiita-my-ranking.online/api/ranking',
+        url: `${process.env.VUE_APP_API_URL}/ranking`,
         contents: {},
         month_contents: {},
         load: false,
