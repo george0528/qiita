@@ -48,10 +48,12 @@ class DataUpdate extends Command
    */
   public function handle()
   {
+    // 3日ランキング
+    $this->main(3, 'three_posts', 0);
     // 週間ランキング
-    $new_week_rank_titles = $this->main(7, 'posts', 5);
+    $new_week_rank_titles = $this->main(7, 'posts', 3);
     // 月間ランキング
-    $this->main(30, 'month_posts', 15);
+    $this->main(30, 'month_posts', 10);
     // メール送信
     $now = Carbon::now();
     Mail::send('email.send', ['time' => $now, 'new_week_rank_titles' => $new_week_rank_titles], function($message) {
@@ -118,16 +120,16 @@ class DataUpdate extends Command
     while($loop_flag) {
       $response = $client->request($method, $this->url, $options);
       $contents = $response->getBody()->getContents();
+      info('content length');
       $contents = json_decode($contents, true);
+      info(count($contents));
       // 追加
       $total_contents = array_merge($total_contents, $contents);
       $options['query']['page']++;
       // pageの配列が尽きたら
       if(count($contents) != $this->per_page) {
+        info($count);
         $loop_flag = false;
-        break;
-      }
-      if($count == 5) {
         break;
       }
       $count++;
