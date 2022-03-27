@@ -6,10 +6,10 @@
   @if(empty($new_week_rank_titles))
     <p>新規の週間ランキングはありませんでした</p>
   @else
-    <ol>
+    <ul>
       @foreach ($new_week_rank_titles as $index => $week_title)
         <li>{{ $week_title }}</li>
       @endforeach
-    </ol>
+    </ul>
   @endif
 </div>
