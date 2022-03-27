@@ -1,7 +1,7 @@
 <template>
   <div id="Rank">
-    <crown :num="index + 1" />
-    <span class="rank_index">{{ index + 1 }}</span>
+    <crown :num="ranking" />
+    <span class="rank_index">{{ ranking }}</span>
   </div>
 </template>
 <style scoped>
@@ -15,6 +15,6 @@
 import Crown from './Crown.vue'
 export default {
   components: { Crown },
-  props: ['index'],
+  props: ['ranking'],
 }
 </script>
