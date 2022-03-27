@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --gc_interval=100",
+    "build": "vue-cli-service build --max-old-space-size=3000 --gc_interval=100",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
