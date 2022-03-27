@@ -5,6 +5,9 @@
     @change="changeTab"
     :value="this.$store.state.tab"
   >
+    <v-tab v-my-touch:tap="changeTabThree">
+      3日
+    </v-tab>
     <v-tab v-my-touch:tap="changeTabWeek">
       週間
     </v-tab>
@@ -35,13 +38,17 @@ export default {
     changeTab(new_tab) {
       this.$store.commit('changeTab', new_tab);
     },
-    changeTabWeek() {
+    changeTabThree() {
       this.tab = 0;
       this.changeTab(0);
     },
-    changeTabMonth() {
+    changeTabWeek() {
       this.tab = 1;
       this.changeTab(1);
+    },
+    changeTabMonth() {
+      this.tab = 2;
+      this.changeTab(2);
     },
   },
   mounted() {

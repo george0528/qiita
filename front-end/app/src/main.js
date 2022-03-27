@@ -20,7 +20,7 @@ Vue.mixin(util);
 
 const store = new Vuex.Store({
   state: {
-    tab: 0,
+    tab: 1,
   },
   mutations: {
     changeTab(state, tab) {

@@ -7,6 +7,15 @@
     <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
+          :contents="this.three_contents" 
+          :save_contents="this.save_contents"
+          :is_include_id="this.is_include_id"
+          @toggle_btn_click="toggle_save"
+          :rank="true"
+        />
+      </v-tab-item>
+      <v-tab-item eager>
+        <Contents
           :contents="this.contents" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
@@ -32,6 +41,7 @@ export default {
   data() {
       return {
         url: `${process.env.VUE_APP_API_URL}/ranking`,
+        three_contents: {},
         contents: {},
         month_contents: {},
         load: false,
@@ -77,6 +87,10 @@ export default {
         // 月間ランキング取得
         if(type == 2) {
           this.month_contents = contents;
+        }
+        // 3日のランキング取得
+        if(type == 3) {
+          this.three_contents = contents;
         }
         this.load = false;
       })
@@ -138,10 +152,11 @@ export default {
   },
   beforeMount() {
     this.get_contents(1);
-    this.get_contents(2);
   },
   mounted : function() {
     this.get_save_contents();
+    this.get_contents(2);
+    this.get_contents(3);
     window.scrollTo(0, 0); 
   },
   computed: {
