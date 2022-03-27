@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MonthPost;
 use App\Models\Post;
+use App\Models\ThreePost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,12 +13,13 @@ class ApiController extends Controller
   // 定数
   private const PERIOD_TYPE_WEEK = 1;
   private const PERIOD_TYPE_MONTH = 2;
+  private const PERIOD_TYPE_THREE = 3;
 
   // 関数
-  public function index(Request $request, Post $post, MonthPost $monthPost)
+  public function index(Request $request, Post $post, MonthPost $monthPost, ThreePost $threePost)
   {
     $val = Validator::make($request->all(), [
-      'type' => ['required', 'integer', 'between:1,2'],
+      'type' => ['required', 'integer', 'between:1,3'],
     ]);
 
     if($val->fails()) {
@@ -31,6 +33,9 @@ class ApiController extends Controller
         break;
       case self::PERIOD_TYPE_MONTH:
         $res = $monthPost->all();
+        break;
+      case self::PERIOD_TYPE_THREE:
+        $res = $threePost->all();
         break;
       // デフォルトは週間(week)
       default:
