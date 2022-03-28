@@ -1,5 +1,8 @@
 <template>
 <div>
+  <div class="load" v-if="is_load">
+    <div v-if="is_load" class="component_load_circle"></div>
+  </div>
   <a class="content" @click.prevent="clickContent(item)" v-for="(item, index) in contents" :key="index">
     <div class="top">
       <div class="left">
@@ -92,6 +95,9 @@ export default {
         let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} 履歴追加`;
         return date_string;
       }
+    },
+    is_load(){
+      return this.contents == null;
     }
   },
 }

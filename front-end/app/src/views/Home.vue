@@ -1,9 +1,6 @@
 <template>
   <div class="Home">
     <div class="top_space"></div>
-    <div class="load" v-if="load">
-      <div v-if="load" class="component_load_circle"></div>
-    </div>
     <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
@@ -42,7 +39,6 @@ export default {
       return {
         url: `${process.env.VUE_APP_API_URL}/ranking`,
         arr_contents: [],
-        load: false,
         save_contents: {},
       };
     },
@@ -61,10 +57,6 @@ export default {
         // キャッシュを入れる
         this.arr_contents[type] = cache_contents;
 
-      if(cache_contents == null) {
-        this.load = true;
-      }
-
       this.axios.get(this.url, {
         params: {
           type: type
@@ -79,11 +71,6 @@ export default {
             // ローカルストレージに新しいコンテンツをキャッシュとして保存
             localStorage.setItem(this.getSaveCotentsName(type), JSON.stringify(new_contents));
           }
-
-        this.load = false;
-      })
-      .catch(() => {
-        this.load = false;
       });
     },
     // 保存ボタンクリック関数
