@@ -7,7 +7,7 @@
     <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
-          :contents="this.three_contents" 
+          :contents="this.arr_contents[3]" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -16,7 +16,7 @@
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.contents" 
+          :contents="this.arr_contents[1]" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -25,7 +25,7 @@
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.month_contents" 
+          :contents="this.arr_contents[2]" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -41,13 +41,9 @@ export default {
   data() {
       return {
         url: `${process.env.VUE_APP_API_URL}/ranking`,
-        three_contents: {},
-        contents: {},
-        month_contents: {},
+        arr_contents: [],
         load: false,
         save_contents: {},
-        cache_contents: {},
-        type: 1,
       };
     },
   components: {
@@ -59,52 +55,36 @@ export default {
     },
     // ランキング取得
     get_contents(type) {
-      this.cache_contents = JSON.parse(localStorage.getItem('contents'));
-      // ローカルストレージにコンテンツがあればとりあえず表示
-      this.contents = this.cache_contents;
+      // キャッシュを取得
+      let cache_contents = JSON.parse(localStorage.getItem(this.getSaveCotentsName(type)));
 
-      if(this.cache_contents == null) {
+        // キャッシュを入れる
+        this.arr_contents[type] = cache_contents;
+
+      if(cache_contents == null) {
         this.load = true;
       }
 
-      return this.axios.get(this.url, {
+      this.axios.get(this.url, {
         params: {
           type: type
         }
       })
       .then((response) => {
-        let contents = response.data;
-        // 週間ランキング
-        if(type == 1) {
-          // 現在のコンテンツと比較して
-          if(!this.array_compare(this.cache_contents, contents)) {
-            // 配列追加
-            this.contents = contents;
+        let new_contents = response.data;
+          // 現在のコンテンツと比較して違う場合
+          if(!this.is_array_same(this.arr_contents[type], new_contents)) {
+            // contentsを更新
+            this.arr_contents[type] = new_contents;
+            // ローカルストレージに新しいコンテンツをキャッシュとして保存
+            localStorage.setItem(this.getSaveCotentsName(type), JSON.stringify(new_contents));
           }
-        // ローカルストレージにコンテンツをキャッシュとして保存
-        localStorage.setItem('contents', JSON.stringify(contents));
-        }
-        // 月間ランキング取得
-        if(type == 2) {
-          this.month_contents = contents;
-        }
-        // 3日のランキング取得
-        if(type == 3) {
-          this.three_contents = contents;
-        }
+
         this.load = false;
       })
       .catch(() => {
         this.load = false;
       });
-    },
-    // 期間の変更ボタン
-    changeType(type) {
-      // タイプが違う場合は
-      if(type != this.type) {
-        this.type = type;
-        this.get_contents();
-      }
     },
     // 保存ボタンクリック関数
     toggle_save(content) {
@@ -143,12 +123,25 @@ export default {
       return this.save_contents.find(content => content.post_id === content_id);
     },
     // 配列比較関数
-    array_compare(ary1, ary2){
+    is_array_same(ary1, ary2){
       if(JSON.stringify(ary1) === JSON.stringify(ary2)) {
         return true;
       }
       return false;
-    } 
+    },
+    // コンテンツのキャッシュの名前を取得
+    getSaveCotentsName(type) {
+      switch (type) {
+        case 1:
+          return 'contents';
+        case 2:
+          return 'month_contents';
+        case 3:
+          return 'three_contents';
+        default:
+          return 'contents';
+      }
+    }
   },
   beforeMount() {
     this.get_contents(1);
@@ -172,14 +165,6 @@ export default {
         } else {
           return 'circle';
         }
-      }
-    },
-    model_tab: {
-      get () {
-        return this.tab
-      },
-      set (new_tab) {
-        this.$store.commit('changeTab', new_tab);
       }
     }
   }
