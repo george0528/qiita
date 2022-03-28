@@ -136,12 +136,16 @@ export default {
       switch (type) {
         case 1:
           this.week_contents = contents;
+          break;
         case 2:
           this.month_contents = contents;
+          break;
         case 3:
           this.three_contents = contents;
+          break;
         default:
           this.week_contents = contents;
+          break;
       }
     },
     getContentsByType(type) {
