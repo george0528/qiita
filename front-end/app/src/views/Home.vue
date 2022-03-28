@@ -4,7 +4,7 @@
     <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
-          :contents="this.arr_contents[3]" 
+          :contents="this.three_contents" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -13,7 +13,7 @@
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.arr_contents[1]" 
+          :contents="this.week_contents" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -22,7 +22,7 @@
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.arr_contents[2]" 
+          :contents="this.month_contents" 
           :save_contents="this.save_contents"
           :is_include_id="this.is_include_id"
           @toggle_btn_click="toggle_save"
@@ -38,7 +38,9 @@ export default {
   data() {
       return {
         url: `${process.env.VUE_APP_API_URL}/ranking`,
-        arr_contents: [],
+        three_contents: {},
+        week_contents: {},
+        month_contents: {},
         save_contents: {},
       };
     },
@@ -55,7 +57,7 @@ export default {
       let cache_contents = JSON.parse(localStorage.getItem(this.getSaveCotentsName(type)));
 
         // キャッシュを入れる
-        this.arr_contents[type] = cache_contents;
+        this.setContentsByType(type, cache_contents);
 
       this.axios.get(this.url, {
         params: {
@@ -65,9 +67,9 @@ export default {
       .then((response) => {
         let new_contents = response.data;
           // 現在のコンテンツと比較して違う場合
-          if(!this.is_array_same(this.arr_contents[type], new_contents)) {
+          if(!this.is_array_same(this.getContentsByType(type), new_contents)) {
             // contentsを更新
-            this.arr_contents[type] = new_contents;
+            this.setContentsByType(type, new_contents);
             // ローカルストレージに新しいコンテンツをキャッシュとして保存
             localStorage.setItem(this.getSaveCotentsName(type), JSON.stringify(new_contents));
           }
@@ -127,6 +129,31 @@ export default {
           return 'three_contents';
         default:
           return 'contents';
+      }
+    },
+    // type別のコンテンツにセットする
+    setContentsByType(type, contents) {
+      switch (type) {
+        case 1:
+          this.week_contents = contents;
+        case 2:
+          this.month_contents = contents;
+        case 3:
+          this.three_contents = contents;
+        default:
+          this.week_contents = contents;
+      }
+    },
+    getContentsByType(type) {
+      switch (type) {
+        case 1:
+          return this.week_contents;
+        case 2:
+          return this.month_contents;
+        case 3:
+          return this.three_contents;
+        default:
+          return this.week_contents;
       }
     }
   },
