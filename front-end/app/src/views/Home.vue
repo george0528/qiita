@@ -34,6 +34,7 @@
 </template>
 <script>
 import Contents from '@/components/Contents.vue'
+import consts from '@/util/consts.js'
 export default {
   data() {
       return {
@@ -121,11 +122,11 @@ export default {
     // コンテンツのキャッシュの名前を取得
     getSaveCotentsName(type) {
       switch (type) {
-        case 1:
+        case consts.WEEK:
           return 'contents';
-        case 2:
+        case consts.MONTH:
           return 'month_contents';
-        case 3:
+        case consts.THREE:
           return 'three_contents';
         default:
           return 'contents';
@@ -134,13 +135,13 @@ export default {
     // type別のコンテンツにセットする
     setContentsByType(type, contents) {
       switch (type) {
-        case 1:
+        case consts.WEEK:
           this.week_contents = contents;
           break;
-        case 2:
+        case consts.MONTH:
           this.month_contents = contents;
           break;
-        case 3:
+        case consts.THREE:
           this.three_contents = contents;
           break;
         default:
@@ -150,11 +151,11 @@ export default {
     },
     getContentsByType(type) {
       switch (type) {
-        case 1:
+        case consts.WEEK:
           return this.week_contents;
-        case 2:
+        case consts.MONTH:
           return this.month_contents;
-        case 3:
+        case consts.THREE:
           return this.three_contents;
         default:
           return this.week_contents;
@@ -162,12 +163,12 @@ export default {
     }
   },
   beforeMount() {
-    this.get_contents(1);
+    this.get_contents(consts.WEEK);
   },
   mounted : function() {
     this.get_save_contents();
-    this.get_contents(2);
-    this.get_contents(3);
+    this.get_contents(consts.MONTH);
+    this.get_contents(consts.THREE);
     window.scrollTo(0, 0); 
   },
   computed: {
