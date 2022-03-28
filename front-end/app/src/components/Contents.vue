@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="right" >
-        <div @click.stop.prevent="clickToggleSave(item)" :class="is_save_content(item.post_id)">
+        <div @click.stop.prevent="(e) => clickToggleSave(e, item)" :class="is_save_content(item.post_id)">
           <div class="bookmark">
           <img src="@/assets/img/bookmark.png" loading="lazy" alt="">
           </div>
@@ -51,7 +51,9 @@ export default {
     New
   },
   methods: {
-    clickToggleSave(item) {
+    clickToggleSave(e, item) {
+      let target = e.currentTarget;
+      target.classList.toggle('save');
       this.$emit("toggle_btn_click", item);
     },
     clickContent(item) {
