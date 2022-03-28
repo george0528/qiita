@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/ranking', [ApiController::class, 'index']);
+Route::get('/ranking', [ApiController::class, 'index'])->name('ranking');

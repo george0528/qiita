@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Validator;
 class ApiController extends Controller
 {
   // 定数
-  private const PERIOD_TYPE_WEEK = 1;
-  private const PERIOD_TYPE_MONTH = 2;
-  private const PERIOD_TYPE_THREE = 3;
+  const PERIOD_TYPE_WEEK = 1;
+  const PERIOD_TYPE_MONTH = 2;
+  const PERIOD_TYPE_THREE = 3;
 
   // 関数
   public function index(Request $request, Post $post, MonthPost $monthPost, ThreePost $threePost)
