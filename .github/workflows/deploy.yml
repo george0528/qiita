@@ -28,6 +28,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd ${{ secrets.SERVER_DEPLOY_DIR }}
+            node -v
             sudo git pull
             cd front-end
             cd app
