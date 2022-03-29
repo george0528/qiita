@@ -27,9 +27,23 @@ export default {
       history_contents.push(item);
       this.setHistory(history_contents);
     },
+    // 履歴から削除
+    deleteHistory(post_id) {
+      let history_contents = this.getHistory();
+
+      // 該当のコンテントを除外
+      history_contents = this.exclusionPostIdContent(history_contents, post_id);
+
+      this.setHistory(history_contents);
+    },
     // contentsの中に同じidがあれば除外する
     exclusionIdContent(contents, id) {
       let new_contents = contents.filter(content => content.id != id);
+      return new_contents;
+    },
+    // contentsの中に同じpostidがあれば除外する
+    exclusionPostIdContent(contents, post_id) {
+      let new_contents = contents.filter(content => content.post_id != post_id);
       return new_contents;
     },
     getPathColor(path) {

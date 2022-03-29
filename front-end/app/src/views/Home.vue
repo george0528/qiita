@@ -4,49 +4,51 @@
     <v-tabs-items :value="this.$store.state.tab" @change="changeTabItem">
       <v-tab-item eager>
         <Contents
-          :contents="this.three_contents" 
-          :save_contents="this.save_contents"
-          :is_include_id="this.is_include_id"
-          @toggle_btn_click="toggle_save"
+          :contents="this.three_contents"
           :rank="true"
-        />
+          v-slot:default="slotProps"
+        >
+          <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+        </Contents>
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.week_contents" 
-          :save_contents="this.save_contents"
-          :is_include_id="this.is_include_id"
-          @toggle_btn_click="toggle_save"
+          :contents="this.week_contents"
           :rank="true"
-        />
+          v-slot:default="slotProps"
+        >
+          <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+        </Contents>
       </v-tab-item>
       <v-tab-item eager>
         <Contents
-          :contents="this.month_contents" 
-          :save_contents="this.save_contents"
-          :is_include_id="this.is_include_id"
-          @toggle_btn_click="toggle_save"
+          :contents="this.month_contents"
           :rank="true"
-        />
+          v-slot:default="slotProps"
+        >
+          <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+        </Contents>
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 <script>
+import Bookmark from '@/components/Bookmark.vue'
 import Contents from '@/components/Contents.vue'
 import consts from '@/util/consts.js'
 export default {
   data() {
-      return {
-        url: `${process.env.VUE_APP_API_URL}/ranking`,
-        three_contents: {},
-        week_contents: {},
-        month_contents: {},
-        save_contents: {},
-      };
-    },
+    return {
+      url: `${process.env.VUE_APP_API_URL}/ranking`,
+      three_contents: {},
+      week_contents: {},
+      month_contents: {},
+      save_contents: {},
+    };
+  },
   components: {
     Contents,
+    Bookmark
   },
   methods : {
     changeTabItem(new_tab) {

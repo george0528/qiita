@@ -3,14 +3,16 @@
     <div class="top_space"></div>
     <Contents 
       :contents="this.contents"
-      :save_contents="this.save_contents"
       :is_include_id="this.is_include_id"
-      @toggle_btn_click="toggle_save"
       :rank="false"
-    />
+      v-slot:default="slotProps"
+    >
+      <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+    </Contents>
   </div>
 </template>
 <script>
+import Bookmark from '../components/Bookmark'
 import Contents from '@/components/Contents'
 export default {
   data() {
@@ -21,6 +23,7 @@ export default {
     };
   },
   components: {
+    Bookmark,
     Contents
   },
   methods : {

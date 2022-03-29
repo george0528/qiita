@@ -17,12 +17,8 @@
           <span v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</span>
         </div>
       </div>
-      <div class="right" >
-        <div @click.stop.prevent="(e) => clickToggleSave(e, item)" :class="is_save_content(item.post_id)">
-          <div class="bookmark">
-          <img src="@/assets/img/bookmark.png" loading="lazy" alt="">
-          </div>
-        </div>
+      <div class="right">
+        <slot :item="item"></slot>
       </div>
     </div>
     <div class="bottom">
@@ -48,17 +44,12 @@ import Rank from '@/components/Rank.vue'
 import New from '@/components/New.vue'
 export default {
   name: 'Contents',
-  props: ['contents', 'save_contents', 'is_include_id', 'rank'],
+  props: ['contents', 'save_contents', 'rank'],
   components: {
     Rank,
     New
   },
   methods: {
-    clickToggleSave(e, item) {
-      let target = e.currentTarget;
-      target.classList.toggle('save');
-      this.$emit("toggle_btn_click", item);
-    },
     clickContent(item) {
       // 履歴追加処理
       let now = new Date();
@@ -73,20 +64,6 @@ export default {
         let date = new Date(origin_date);
         let date_string = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}投稿`;
         return date_string;
-      }
-    },
-    is_save_content: function() {
-      return function(id) {
-        if(this.save_contents.length) {
-          var is_include = this.is_include_id(id);
-        } else {
-          is_include = false;
-        }
-        if(is_include) {
-          return 'circle save';
-        } else {
-          return 'circle';
-        }
       }
     },
     history_date: function() {

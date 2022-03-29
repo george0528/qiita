@@ -3,16 +3,17 @@
   <div class="top_space"></div>
   <Contents 
     :contents="this.contents" 
-    :save_contents="this.save_contents"
-    :is_include_id="this.is_include_id"
-    @toggle_btn_click="toggle_save"
     :rank="false"
-  />
+    v-slot:default="slotProps"
+  >
+    <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+  </Contents>
 </div>
 </template>
 
 <script>
 import Contents from '@/components/Contents.vue'
+import Bookmark from '@/components/Bookmark.vue'
 export default {
   data() {
     return {
@@ -21,10 +22,11 @@ export default {
     };
   },
   components: {
-    Contents
+    Contents,
+    Bookmark
   },
   methods: {
-    // 保存ボタンクリック関数
+    // ボタンクリック関数
     toggle_save(content) {
       let content_id = content.post_id;
       if(this.save_contents.length) {
@@ -60,22 +62,6 @@ export default {
     is_include_id(content_id) {
       return this.save_contents.find(content => content.post_id === content_id);
     },
-  },
-  computed: {
-    is_save_content: function() {
-      return function(id) {
-        if(this.save_contents.length) {
-          var is_include = this.is_include_id(id);
-        } else {
-          is_include = false;
-        }
-        if(is_include) {
-          return 'circle save';
-        } else {
-          return 'circle';
-        }
-      }
-    }
   },
   mounted() {
     this.contents = this.getHistory().reverse();
