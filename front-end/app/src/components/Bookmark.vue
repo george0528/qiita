@@ -1,7 +1,7 @@
 <template>
   <div @click.stop.prevent="(e) => clickToggleBtn(e, item)" :class="is_save_content(item.post_id)">
     <div class="bookmark">
-      <img src="@/assets/img/trash.png" loading="lazy" alt="">
+      <img src="@/assets/img/bookmark.png" loading="lazy" alt="">
     </div>
   </div>
 </template>
