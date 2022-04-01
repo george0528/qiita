@@ -48,15 +48,16 @@ class DataUpdate extends Command
    */
   public function handle()
   {
+    $newRankTitles = [];
     // 3日ランキング
-    $this->main(3, 'three_posts', 0);
+    $newRankTitles['three'] = $this->main(3, 'three_posts', 0);
     // 週間ランキング
-    $new_week_rank_titles = $this->main(7, 'posts', 3);
+    $newRankTitles['week'] = $this->main(7, 'posts', 3);
     // 月間ランキング
-    $this->main(30, 'month_posts', 10);
+    $newRankTitles['month'] = $this->main(30, 'month_posts', 10);
     // メール送信
     $now = Carbon::now();
-    Mail::send('email.send', ['time' => $now, 'new_week_rank_titles' => $new_week_rank_titles], function($message) {
+    Mail::send('email.send', ['time' => $now, 'newRankTitlels' => $newRankTitles], function($message) {
       $message->to('aleph0528@gmail.com')
       ->from('aleph0528@gmail.com', 'qiita-my-ranking')
       ->subject('Qiitaの週間ランキングのデータを更新しました');
@@ -216,7 +217,7 @@ class DataUpdate extends Command
     return $db_datas;
   }
 
-  // 新規のランキングのIDを取得
+  // 新規のランキングのタイトルを取得
   public function getNewRankTitles($old_data, $db_datas)
   {
     $new_db_data = collect($db_datas);
