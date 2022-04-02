@@ -6,14 +6,14 @@
     :rank="false"
     v-slot:default="slotProps"
   >
-    <Bookmark :item="slotProps.item" @clickToggleBtn="toggle_save" :save_contents="save_contents"/>
+    <TrashBox :item="slotProps.item" @clickToggleBtn="toggle_save"/>
   </Contents>
 </div>
 </template>
 
 <script>
 import Contents from '@/components/Contents.vue'
-import Bookmark from '@/components/Bookmark.vue'
+import TrashBox from '@/components/TrashBox.vue'
 export default {
   data() {
     return {
@@ -23,28 +23,16 @@ export default {
   },
   components: {
     Contents,
-    Bookmark
+    TrashBox
   },
   methods: {
     // ボタンクリック関数
     toggle_save(content) {
-      let content_id = content.post_id;
-      if(this.save_contents.length) {
-        var id_include = this.is_include_id(content_id);
-      }
-      // 保存されていたら
-      if(id_include) {
-        // 配列から削除
-        this.save_contents = this.save_contents.filter(content => content.post_id !== content_id);
-      } else {
-        // 配列に追加
-        if(this.save_contents.length) {
-          this.save_contents.push(content);
-        } else {
-          this.save_contents = [content];
-        }
-      }
-      this.post_save_contents(this.save_contents);
+      let post_id = content.post_id;
+      this.deleteHistory(post_id);
+      if(!window.confirm('記事を削除しますか？')) return;
+      // 履歴のレンダリング
+      this.contents = this.getHistory().reverse();
     },
     // セーブコンテンツ取得
     get_save_contents() {
