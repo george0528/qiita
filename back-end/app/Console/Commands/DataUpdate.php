@@ -57,7 +57,7 @@ class DataUpdate extends Command
     $newRankTitles['month'] = $this->main(30, 'month_posts', 10);
     // メール送信
     $now = Carbon::now();
-    Mail::send('email.send', ['time' => $now, 'newRankTitlels' => $newRankTitles], function($message) {
+    Mail::send('email.send', ['time' => $now, 'newRankTitles' => $newRankTitles], function($message) {
       $message->to('aleph0528@gmail.com')
       ->from('aleph0528@gmail.com', 'qiita-my-ranking')
       ->subject('Qiitaの週間ランキングのデータを更新しました');

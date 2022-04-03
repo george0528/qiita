@@ -4,7 +4,7 @@
     'week' => '週間',
     'month' => '月間'
   ];
-@endphp 
+@endphp
 <div>
   <p>{{ $time }}</p>
   データを更新しました
