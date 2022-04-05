@@ -3,8 +3,10 @@
 namespace Tests\Unit;
 
 use App\Console\Commands\DataUpdate;
+use App\Models\Post;
 use Carbon\Carbon;
 use Tests\TestCase;
+
 /** 
  * @property DataUpdate $class
  */
@@ -16,7 +18,6 @@ class DataUpdateTest extends TestCase
     private $per_page = 100;
     private $method = 'GET';
 
-    // セットアップ
     public function setUp(): void
     {
         parent::setUp();
