@@ -5,7 +5,9 @@ namespace Tests\Unit;
 use App\Console\Commands\DataUpdate;
 use Carbon\Carbon;
 use Tests\TestCase;
-
+/** 
+ * @property DataUpdate $class
+ */
 class DataUpdateTest extends TestCase
 {
     // テストで使う DataUpdateクラスのprivateクラス変数
@@ -19,11 +21,6 @@ class DataUpdateTest extends TestCase
     {
         parent::setUp();
         $this->class = new DataUpdate();
-    }
-
-    public function test_test()
-    {
-        $this->assertEquals(1, 1);
     }
     
     public function test_generate_day()
