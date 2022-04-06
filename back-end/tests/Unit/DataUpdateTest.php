@@ -64,4 +64,32 @@ class DataUpdateTest extends TestCase
         $result = $this->class->create_request_data($day, $minStock);
         $this->assertEquals($options, $result);
     }
+
+    public function test_sortByKey()
+    {
+        $key_name = 'likes_count';
+        $sort_order = SORT_DESC;
+
+        $expectation = [
+            [
+                'likes_count' => 30
+            ],
+            [
+                'likes_count' => 13
+            ],
+            [
+                'likes_count' => 8
+            ],
+            [
+                'likes_count' => 5
+            ],
+        ];
+
+        $contents = $expectation;
+        shuffle($contents);
+
+        $result = $this->class->sortByKey($key_name, $sort_order, $contents);
+        
+        $this->assertEquals($result, $expectation);
+    }
 }
