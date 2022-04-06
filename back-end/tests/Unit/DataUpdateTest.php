@@ -6,8 +6,10 @@ use App\Console\Commands\DataUpdate;
 use App\Models\Post;
 use Carbon\Carbon;
 use Tests\TestCase;
+use Tests\TestData\TestFactory;
 
 /** 
+ * @property TestFactory $factory
  * @property DataUpdate $class
  */
 class DataUpdateTest extends TestCase
@@ -21,6 +23,7 @@ class DataUpdateTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->factory = new TestFactory();
         $this->class = new DataUpdate();
     }
     
@@ -70,23 +73,12 @@ class DataUpdateTest extends TestCase
         $key_name = 'likes_count';
         $sort_order = SORT_DESC;
 
-        $expectation = [
-            [
-                'likes_count' => 30
-            ],
-            [
-                'likes_count' => 13
-            ],
-            [
-                'likes_count' => 8
-            ],
-            [
-                'likes_count' => 5
-            ],
-        ];
+        $expectation = $this->factory->getContents(30);
 
         $contents = $expectation;
         shuffle($contents);
+
+        $this->assertNotEquals($contents, $expectation);
 
         $result = $this->class->sortByKey($key_name, $sort_order, $contents);
         
