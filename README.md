@@ -6,6 +6,9 @@
 # URL
 [Web(フロントエンド)](https://qiita-my-ranking.online/)
 
+# タスク管理
+[Notion](https://piquant-ease-679.notion.site/17387a41f93e40f788f2c2ce56516257?v=41390c845b4a469b93450394ce9c48df)
+
 # バージョン
 
 ## 1.0
@@ -35,7 +38,7 @@
 - Vuexの導入
 - READMEにバージョン別の変更点を記述
 
-# DEMO
+<!-- # DEMO
 
 "hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
 
@@ -205,4 +208,4 @@ python demo.py
  
 社内向けなら社外秘であることを明示してる
  
-"hoge" is Confidential.
+"hoge" is Confidential. -->
