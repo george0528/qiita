@@ -59,9 +59,15 @@ export default {
       // キャッシュを取得
       let cache_contents = JSON.parse(localStorage.getItem(this.getSaveCotentsName(type)));
 
-        // キャッシュを入れる
-        this.setContentsByType(type, cache_contents);
+      // キャッシュを表示
+      this.setContentsByType(type, cache_contents);
 
+      // キャッシュの更新をしなくていいなら
+      if(!this.shouldCacheUpdate()) {
+        return;
+      }
+
+      // キャッシュの更新すべきか確認
       this.axios.get(this.url, {
         params: {
           type: type
@@ -69,13 +75,12 @@ export default {
       })
       .then((response) => {
         let new_contents = response.data;
-          // 現在のコンテンツと比較して違う場合
-          if(!this.is_array_same(this.getContentsByType(type), new_contents)) {
-            // contentsを更新
-            this.setContentsByType(type, new_contents);
-            // ローカルストレージに新しいコンテンツをキャッシュとして保存
-            localStorage.setItem(this.getSaveCotentsName(type), JSON.stringify(new_contents));
-          }
+        // contentsを更新
+        this.setContentsByType(type, new_contents);
+        // 更新した日付を保存
+        localStorage.setItem(this.getSaveCotentsName(type)+'_cache_update_date', new Date());
+        // ローカルストレージに新しいコンテンツをキャッシュとして保存
+        localStorage.setItem(this.getSaveCotentsName(type), JSON.stringify(new_contents));
       });
     },
     // 保存ボタンクリック関数
@@ -151,6 +156,7 @@ export default {
           break;
       }
     },
+    // type別のコンテンツを取得する
     getContentsByType(type) {
       switch (type) {
         case consts.WEEK:
@@ -162,7 +168,27 @@ export default {
         default:
           return this.week_contents;
       }
-    }
+    },
+    // cacheの更新すべきか
+    shouldCacheUpdate(type) {
+      let lastUpdateDate = localStorage.getItem(this.getSaveCotentsName(type)+'_cache_update_date');
+      // localStorageになかったら
+      if(lastUpdateDate == null) {
+        return true;
+      }
+      lastUpdateDate = new Date(lastUpdateDate);
+      let now = new Date();
+      // 日付比較
+      if(
+        now.getFullYear() != lastUpdateDate.getFullYear() ||
+        now.getMonth() != lastUpdateDate.getMonth() ||
+        now.getDate() != lastUpdateDate.getDate()
+      ) {
+        return true;
+      }
+
+      return false;
+    },
   },
   beforeMount() {
     this.get_contents(consts.WEEK);
@@ -171,7 +197,7 @@ export default {
     this.get_save_contents();
     this.get_contents(consts.MONTH);
     this.get_contents(consts.THREE);
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   },
   computed: {
     is_save_content: function() {
