@@ -1,7 +1,7 @@
 <template>
   <div class="SaveContent">
     <div class="top_space"></div>
-    <Contents
+    <Contents 
       :contents="this.contents"
       :is_include_id="this.is_include_id"
       :rank="false"
@@ -64,10 +64,8 @@ export default {
     this.url = new URL('https://back-end.qiita-my-ranking.online/api/ranking');
     this.get_save_contents();
     this.contents = this.save_contents;
-    if(this.contents.value != undefined) {
-      this.contents.reverse();
-    }
-    window.scrollTo(0, 0);
+    this.contents.reverse();
+    window.scrollTo(0, 0); 
   }
 }
 </script>
