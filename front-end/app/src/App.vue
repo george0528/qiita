@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <SideSlider />
     <div class="fixed">
       <Title />
       <Banner />
@@ -17,14 +16,12 @@ import Footer from '@/components/Footer.vue'
 import Banner from '@/components/Banner.vue'
 import Title from '@/components/Title.vue'
 import Tabs from '@/components/Tabs'
-import SideSlider from '@/components/SideSlider'
 export default {
   components: {
     Footer,
     Banner,
     Title,
-    Tabs,
-    SideSlider
+    Tabs
   },
 }
 </script>
@@ -34,7 +31,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 5;
+  z-index: 1000;
   box-shadow: none;
   height: 95px;
 }
