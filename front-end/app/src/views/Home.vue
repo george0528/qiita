@@ -190,11 +190,9 @@ export default {
       return false;
     },
   },
-  beforeMount() {
-    this.get_contents(consts.WEEK);
-  },
   mounted : function() {
     this.get_save_contents();
+    this.get_contents(consts.WEEK);
     this.get_contents(consts.MONTH);
     this.get_contents(consts.THREE);
     window.scrollTo(0, 0);
