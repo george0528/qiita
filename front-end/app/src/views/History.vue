@@ -1,8 +1,8 @@
 <template>
 <div id="History">
   <div class="top_space"></div>
-  <Contents 
-    :contents="this.contents" 
+  <Contents
+    :contents="this.contents"
     :rank="false"
     v-slot:default="slotProps"
   >
@@ -34,13 +34,6 @@ export default {
       // 履歴のレンダリング
       this.contents = this.getHistory().reverse();
     },
-    // セーブコンテンツ取得
-    get_save_contents() {
-      let contents = JSON.parse(localStorage.getItem('save_contents'));
-      if(contents) {
-        this.save_contents = contents;
-      }
-    },
     // セーブコンテンツに追加
     post_save_contents(contents) {
       contents = JSON.stringify(contents);
@@ -53,8 +46,7 @@ export default {
   },
   mounted() {
     this.contents = this.getHistory().reverse();
-    this.get_save_contents();
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }
 }
 </script>
