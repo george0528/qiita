@@ -57,17 +57,17 @@ class DataUpdate extends Command
     $newRankTitles['month'] = $this->main(30, 'month_posts', 10);
     // メール送信
     $now = Carbon::now();
-    Mail::send('email.send', ['time' => $now, 'newRankTitles' => $newRankTitles], function($message) {
+    Mail::send('email.send', ['time' => $now, 'newRankTitles' => $newRankTitles], function ($message) {
       $message->to('aleph0528@gmail.com')
-      ->from('aleph0528@gmail.com', 'qiita-my-ranking')
-      ->subject('Qiitaの週間ランキングのデータを更新しました');
+        ->from('aleph0528@gmail.com', 'qiita-my-ranking')
+        ->subject('Qiitaの週間ランキングのデータを更新しました');
     });
     return Command::SUCCESS;
   }
 
   // mainの関数 他の関数をまとめた関数
-  /** 
-   * @param int $days 何日以内のデータを取るか 
+  /**
+   * @param int $days 何日以内のデータを取るか
    * @param string $db_name 更新するDBのテーブルの名前
    * @param int $min_stock Qiitaの記事がストックされた数の最低数を決める
    * @return void Qiitaのデータを取得しDBのデータを更新
@@ -82,7 +82,7 @@ class DataUpdate extends Command
     // DB用にデータの様式を変更する
     $db_datas = $this->create_db_datas($sort_contents);
     $new_rank_titles = $this->update_db($db_name, $db_datas);
-    Log::info($db_name."のデータを更新しました");
+    Log::info($db_name . "のデータを更新しました");
     return $new_rank_titles;
   }
 
@@ -93,10 +93,10 @@ class DataUpdate extends Command
     $data['per_page'] = $this->per_page;
     $data['page'] = $this->page;
     $query_params = '';
-    $query_params = $this->query_params_set($query_params, "stocks:>${min_stock}");
-    $query_params = $this->query_params_set($query_params, "created:>=${day}");
+    $query_params = $this->query_params_set($query_params, "stocks:>$min_stock");
+    $query_params = $this->query_params_set($query_params, "created:>=$day");
 
-    if($query_params != '') {
+    if ($query_params != '') {
       $data['query'] = $query_params;
     }
 
@@ -104,7 +104,7 @@ class DataUpdate extends Command
       'query' => $data,
       'verify' => false,
       'headers' => [
-        'Authorization' => 'Bearer '.$this->token,
+        'Authorization' => 'Bearer ' . $this->token,
         'Content-Type' => 'application/json'
       ]
     ];
@@ -118,7 +118,7 @@ class DataUpdate extends Command
     $loop_flag = true;
     $total_contents = [];
     $count = 0;
-    while($loop_flag) {
+    while ($loop_flag) {
       $response = $client->request($method, $this->url, $options);
       $contents = $response->getBody()->getContents();
       info('content length');
@@ -128,7 +128,7 @@ class DataUpdate extends Command
       $total_contents = array_merge($total_contents, $contents);
       $options['query']['page']++;
       // pageの配列が尽きたら
-      if(count($contents) != $this->per_page) {
+      if (count($contents) != $this->per_page) {
         info($count);
         $loop_flag = false;
         break;
@@ -145,7 +145,7 @@ class DataUpdate extends Command
     $new_rank_titles = $this->getNewRankTitles($old_data, $db_datas);
     // is_new追加
     foreach ($db_datas as $index => $data) {
-      if(in_array($data['title'], $new_rank_titles)) {
+      if (in_array($data['title'], $new_rank_titles)) {
         $db_datas[$index]['is_new'] = true;
       } else {
         $db_datas[$index]['is_new'] = false;
@@ -171,19 +171,21 @@ class DataUpdate extends Command
   // query set
   public function query_params_set($query_params, $value)
   {
-    $query_params = $query_params.' '.$value;
+    $query_params = $query_params . ' ' . $value;
     return $query_params;
   }
 
   // 日付求める処理
-  public function generate_days($day) {
-    $date = new Carbon("-${day} day");
+  public function generate_days($day)
+  {
+    $date = new Carbon("-$day day");
     $date = $date->format("Y-m-d");
     return $date;
   }
 
   // 並び替え
-  public function sortByKey($key_name, $sort_order, $array) {
+  public function sortByKey($key_name, $sort_order, $array)
+  {
     foreach ($array as $key => $value) {
       $standard_key_array[$key] = $value[$key_name];
     }
@@ -198,7 +200,7 @@ class DataUpdate extends Command
     foreach ($sort_contents as $index => $content) {
       // rankingが0からにならないように
       $index++;
-      
+
       // DB用データ作成
       $data = [
         'post_id' => $content['id'],
