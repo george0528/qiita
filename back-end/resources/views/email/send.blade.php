@@ -9,10 +9,10 @@
   <p>{{ $time }}</p>
   データを更新しました
   <br>
-  @foreach ($periods as $periodKey => $periodValue) 
-    <h1>新規{{ $periodValue}}ランキング</h1>
+  @foreach ($periods as $periodKey => $periodValue)
+    <h1>新規{{ $periodValue }}ランキング</h1>
     @if(empty($newRankTitles[$periodKey]))
-    <p>新規の週間ランキングはありませんでした</p>
+    <p>新規の{{ $periodValue }}ランキングはありませんでした</p>
     @else
     <ul>
       @foreach ($newRankTitles[$periodKey] as $index => $titles)
