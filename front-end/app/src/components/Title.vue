@@ -24,4 +24,8 @@ export default {
 .title {
   font-weight: bold;
 }
+
+.v-toolbar__content {
+  justify-content: space-between;
+}
 </style>
